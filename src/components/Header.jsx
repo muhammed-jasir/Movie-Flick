@@ -30,7 +30,7 @@ const Header = () => {
     }
 
     return (
-        <header className='relative w-full z-10 py-3 px-5 bg-[#001F54] text-[#FFFFFF] shadow-md'>
+        <header className='relative top-0 w-full z-10 py-4 px-5 bg-[#14213d] text-[#FFFFFF] shadow-md'>
             <div className='w-full flex gap-10 justify-between items-center '>
                 <Link to='/'>
                     <h1 className='text-3xl font-bold whitespace-nowrap'>
@@ -38,7 +38,7 @@ const Header = () => {
                     </h1>
                 </Link>
 
-                <nav className={`hidden absolute sm:flex flex-col top-16 left-0 w-full py-3 px-5 md:px-0 md:py-0 md:w-auto bg-[#001F54] md:bg-transparent md:static md:flex md:flex-row items-center gap-1 md:gap-5 ${navbarToggle ? 'sm:block' : 'sm:hidden'}`}>
+                <nav className={`hidden absolute sm:flex flex-col top-16 left-0 w-full py-3 px-5 md:px-0 md:py-0 md:w-auto bg-[#14213d] md:bg-transparent md:static md:flex md:flex-row items-center gap-1 md:gap-5 ${navbarToggle ? 'sm:block' : 'sm:hidden'}`}>
                     {
                         navLinks.map((navLink) => (
                             <NavLink
@@ -63,7 +63,7 @@ const Header = () => {
                         />
 
                         <button>
-                            <IoSearch size={25} className='cursor-pointer' />
+                            <IoSearch size={30} className='cursor-pointer' />
                         </button>
                     </form>
 

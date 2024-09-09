@@ -4,6 +4,8 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import Movies from './pages/Movies'
 import Tv from './pages/Tv'
+import BottomNavbar from './components/BottomNavbar'
+import SearchPage from './pages/SearchPage'
 
 const App = () => {
     return (
@@ -11,10 +13,12 @@ const App = () => {
             <BrowserRouter>
                 <Header />
                 <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/movies' element={<Movies />} />
-                <Route path='/tv' element={<Tv />} />
+                    <Route path='/' element={<Home />} />
+                    <Route path='/movies' element={<Movies />} />
+                    <Route path='/tv' element={<Tv />} />
+                    <Route path='/search' element={<SearchPage />} />
                 </Routes>
+                <BottomNavbar />
             </BrowserRouter>
         </main>
     )
