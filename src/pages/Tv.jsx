@@ -1,8 +1,11 @@
 import React from 'react'
+import Banner from '../components/Banner'
 
 const Tv = () => {
   return (
-    <div>Tv</div>
+    <main>
+        <Banner />
+    </main>
   )
 }
 

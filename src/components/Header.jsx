@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import { IoIosNotifications } from 'react-icons/io'
 import { IoMenu, IoSearch } from 'react-icons/io5'
@@ -7,6 +7,7 @@ import { Link, NavLink } from 'react-router-dom'
 const Header = () => {
     const [navbarToggle, setNavbarToggle] = useState(false);
     const [searchInput, setSearchInput] = useState(null);
+    const [scrolled, setScrolled] = useState(false);
 
     const navLinks = [
         {
@@ -23,15 +24,36 @@ const Header = () => {
         },
     ];
 
+    const handleScroll = () => {
+        if (window.scrollY > 0) {
+            setScrolled(true);
+        } else {
+            setScrolled(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+
+    }, []);
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         console.log(searchInput);
-    }
+    };
 
     return (
-        <header className='relative top-0 w-full z-10 py-4 px-5 bg-[#14213d] text-[#FFFFFF] shadow-md'>
-            <div className='w-full flex gap-10 justify-between items-center '>
+        <header className={`
+                fixed top-0 w-full z-10 py-4 px-5 text-[#FFFFFF] shadow-md
+                ${scrolled ? 'bg-[#14213d]' : 'bg-transparent'}
+            `}
+        >
+            <div className='w-full flex gap-5 justify-between items-center'>
                 <Link to='/'>
                     <h1 className='text-3xl font-bold whitespace-nowrap'>
                         Movie Flick
@@ -58,25 +80,25 @@ const Header = () => {
                         <input
                             type='text'
                             placeholder='Search'
-                            className='px-2 py-2 w-[250px] rounded-md bg-[#0a112886] outline-none'
+                            className='px-2 py-2 w-[250px] rounded-md bg-[#0a1128e1] outline-none'
                             onChange={(e) => setSearchInput(e.target.value)}
                         />
 
                         <button>
-                            <IoSearch size={30} className='cursor-pointer' />
+                            <IoSearch className='cursor-pointer text-3xl' />
                         </button>
                     </form>
 
-                    <IoSearch size={30} className='cursor-pointer block lg:hidden' />
-                    <IoIosNotifications size={30} className='cursor-pointer' />
-                    <FaUserCircle size={30} className='cursor-pointer' />
+                    <IoSearch className='cursor-pointer block lg:hidden text-3xl' />
+                    <IoIosNotifications className='cursor-pointer text-3xl' />
+                    <FaUserCircle className='cursor-pointer text-3xl' />
 
                     <div className='hidden sm:block md:hidden'>
-                        <IoMenu size={30} onClick={() => setNavbarToggle(!navbarToggle)} className='cursor-pointer' />
+                        <IoMenu onClick={() => setNavbarToggle(!navbarToggle)} className='cursor-pointer text-3xl' />
                     </div>
                 </div>
-            </div>
-        </header>
+            </div >
+        </header >
     )
 }
 

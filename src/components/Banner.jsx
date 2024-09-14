@@ -1,0 +1,161 @@
+import React, { useEffect, useState } from 'react'
+import axiosInstance from '../constants/axios';
+import { getImageUrl } from '../constants/constants';
+import { Link } from 'react-router-dom';
+
+import { FaPlay } from 'react-icons/fa';
+import { MdInfoOutline } from 'react-icons/md';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+
+import Spinner from './Spinner'
+
+const Banner = () => {
+    const [trendingData, setTrendingData] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const path = window.location.pathname;
+
+    const fetchTrendingAll = async () => {
+        setLoading(true);
+        try {
+            const response = await axiosInstance.get("trending/all/day");
+            const filteredData = response.data.results.filter(item => item.media_type !== 'people');
+            setTrendingData(filteredData);
+        } catch (error) {
+            console.error("Error fetching:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchTrendingMovies = async () => {
+        setLoading(true);
+        try {
+            const response = await axiosInstance.get("trending/movie/day");
+            setTrendingData(response.data.results);
+        } catch (error) {
+            console.error("Error fetching movies:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchTrendingTvShows = async () => {
+        setLoading(true);
+        try {
+            const response = await axiosInstance.get("trending/tv/day");
+            setTrendingData(response.data.results);
+        } catch (error) {
+            console.error("Error fetching tv:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (path.includes('/movies')) {
+            fetchTrendingMovies();
+        } else if (path.includes('/tv')) {
+            fetchTrendingTvShows();
+        } else {
+            fetchTrendingAll();
+        }
+
+    }, [path]);
+
+    if (loading) {
+        return (
+            <div className='w-full h-[80vh] sm:h-[90vh] md:h-[100vh] flex items-center justify-center'>
+                <Spinner borderColor={'border-red-800'}/>
+            </div>
+        )
+    }
+
+    return (
+        <section>
+            <div className='flex overflow-hidden'>
+                <Swiper
+                    style={{
+                        "--swiper-pagination-color": "#FFBA08",
+                        "--swiper-pagination-bullet-inactive-color": "#999999",
+                        "--swiper-pagination-bullet-inactive-opacity": "1",
+                        "--swiper-pagination-bullet-size": "8px",
+                        "--swiper-pagination-bullet-horizontal-gap": "2px"
+                    }}
+                    spaceBetween={30}
+                    centeredSlides={true}
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    navigation={false}
+                    modules={[Autoplay, Pagination, Navigation]}
+                >
+                    {
+                        trendingData.map((data) => (
+                            <SwiperSlide key={data.id}>
+                                <div
+                                    className='relative min-w-full h-[80vh] sm:h-[90vh] md:h-[100vh]'
+                                >
+                                    <img
+                                        src={getImageUrl('original', data.backdrop_path)}
+                                        alt={data.title || data.name || 'banner-image'}
+                                        className='w-full h-full object-cover'
+                                    />
+
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-75"></div>
+
+                                    <div className='absolute bottom-20 flex flex-col gap-5 max-w-full md:max-w-xl mx-5 md:mx-20 text-center md:text-left'>
+                                        <h1 className='text-4xl lg:text-5xl font-bold drop-shadow-2xl'>
+                                            {data?.title || data?.name}
+                                        </h1>
+
+                                        <p className='text-lg font-semibold line-clamp-4 text-ellipsis'>
+                                            {data?.overview}
+                                        </p>
+
+                                        <div className='flex gap-3 text-base font-medium justify-center md:justify-start'>
+                                            <p>
+                                                Rating: {Number(data?.vote_average).toFixed(1)}
+                                            </p>
+
+                                            <p>
+                                                View: {Number(data?.popularity).toFixed(1)}
+                                            </p>
+                                        </div>
+
+                                        <div className='flex gap-3 justify-center md:justify-start'>
+                                            <Link to='/'>
+                                                <button className='flex items-center px-6 sm:px-8 py-2 gap-2 text-lg font-semibold cursor-pointer bg-white text-black rounded hover:bg-[#ffffffbf] whitespace-nowrap'>
+                                                    <FaPlay />
+                                                    Play
+                                                </button>
+                                            </Link>
+
+                                            <Link to='/'>
+                                                <button className='flex items-center px-4 sm:px-6 py-2 gap-2 text-lg font-semibold cursor-pointer bg-[#6d6d6eb3] text-white rounded hover:bg-[#6d6d6e66] whitespace-nowrap'>
+                                                    <MdInfoOutline className='text-2xl' />
+                                                    More Info
+                                                </button>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))
+                    }
+                </Swiper>
+            </div>
+        </section>
+    )
+}
+
+export default Banner
