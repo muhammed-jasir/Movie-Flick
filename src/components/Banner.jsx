@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axiosInstance from '../constants/axios';
+import axiosInstance from '../axios';
 import { getImageUrl } from '../constants/constants';
 import { Link } from 'react-router-dom';
 
@@ -101,13 +101,13 @@ const Banner = () => {
                                     <img
                                         src={getImageUrl('original', data?.backdrop_path)}
                                         alt={data?.title || data?.name || 'banner-image'}
-                                        className='w-full h-full object-cover'
+                                        className='w-full h-full object-cover bg-[#14213d]'
                                         loading='lazy'
                                     />
 
                                     <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
 
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-75"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black"></div>
 
                                     <div className='absolute bottom-20 flex flex-col gap-5 max-w-full md:max-w-xl mx-5 md:mx-20 text-center md:text-left'>
                                         <h1 className='text-4xl lg:text-5xl font-bold drop-shadow-2xl'>

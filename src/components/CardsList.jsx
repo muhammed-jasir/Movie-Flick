@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import axiosInstance from '../constants/axios';
+import axiosInstance from '../axios';
 import PosterCard from './PosterCard';
 import Spinner from './Spinner';
 
-const CardsList = ({ url, title, isTrending, type }) => {
+const CardsList = ({ url, title, isTrending, type, genreId }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -19,9 +19,30 @@ const CardsList = ({ url, title, isTrending, type }) => {
         }
     };
 
+    const fetchByGenreId = async () => {
+        setLoading(true);
+        try {
+            const response = await axiosInstance.get(`/discover/${type}`, {
+                params: {
+                    with_genres: genreId,
+                    sort_by: 'popularity.desc',
+                },
+            });
+            setData(response.data.results);
+        } catch (error) {
+            console.error("Error fetching:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        fetchByCategory();
-    }, [url]);
+        if (genreId) {
+            fetchByGenreId();
+        } else {
+            fetchByCategory();
+        }
+    }, [url, genreId]);
 
     return (
         <section className='flex flex-col gap-5 pt-5 px-5 overflow-hidden'>
