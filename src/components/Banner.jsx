@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Keyboard, Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 import Spinner from './Spinner'
 
@@ -24,7 +24,7 @@ const Banner = () => {
         setLoading(true);
         try {
             const response = await axiosInstance.get("trending/all/day");
-            const filteredData = response.data.results.filter(item => item.media_type !== 'people');
+            const filteredData = response.data.results.filter(item => item.media_type !== 'person');
             setTrendingData(filteredData);
         } catch (error) {
             console.error("Error fetching:", error);
@@ -33,25 +33,13 @@ const Banner = () => {
         }
     };
 
-    const fetchTrendingMovies = async () => {
+    const fetchTrending = async (type, time) => {
         setLoading(true);
         try {
-            const response = await axiosInstance.get("trending/movie/day");
+            const response = await axiosInstance.get(`trending/${type}/${time}`);
             setTrendingData(response.data.results);
         } catch (error) {
-            console.error("Error fetching movies:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const fetchTrendingTvShows = async () => {
-        setLoading(true);
-        try {
-            const response = await axiosInstance.get("trending/tv/day");
-            setTrendingData(response.data.results);
-        } catch (error) {
-            console.error("Error fetching tv:", error);
+            console.error("Error fetching trending data:", error);
         } finally {
             setLoading(false);
         }
@@ -59,9 +47,9 @@ const Banner = () => {
 
     useEffect(() => {
         if (path.includes('/movies')) {
-            fetchTrendingMovies();
+            fetchTrending('movie', 'day');
         } else if (path.includes('/tv')) {
-            fetchTrendingTvShows();
+            fetchTrending('tv', 'day');
         } else {
             fetchTrendingAll();
         }
@@ -71,7 +59,7 @@ const Banner = () => {
     if (loading) {
         return (
             <div className='w-full h-[80vh] sm:h-[90vh] md:h-[100vh] flex items-center justify-center'>
-                <Spinner borderColor={'border-red-800'}/>
+                <Spinner borderColor={'border-white'} />
             </div>
         )
     }
@@ -89,27 +77,35 @@ const Banner = () => {
                     }}
                     spaceBetween={30}
                     centeredSlides={true}
+                    grabCursor={false}
+                    lazy={true}
                     autoplay={{
-                        delay: 2500,
+                        delay: 3000,
                         disableOnInteraction: false,
+                    }}
+                    keyboard={{
+                        enabled: true,
                     }}
                     pagination={{
                         clickable: true,
                     }}
                     navigation={false}
-                    modules={[Autoplay, Pagination, Navigation]}
+                    modules={[Keyboard, Autoplay, Pagination, Navigation]}
                 >
                     {
                         trendingData.map((data) => (
                             <SwiperSlide key={data.id}>
                                 <div
-                                    className='relative min-w-full h-[80vh] sm:h-[90vh] md:h-[100vh]'
+                                    className='relative min-w-full h-[80vh] sm:h-[90vh] md:h-[100vh] transition-all duration-150 ease-linear'
                                 >
                                     <img
-                                        src={getImageUrl('original', data.backdrop_path)}
-                                        alt={data.title || data.name || 'banner-image'}
+                                        src={getImageUrl('original', data?.backdrop_path)}
+                                        alt={data?.title || data?.name || 'banner-image'}
                                         className='w-full h-full object-cover'
+                                        loading='lazy'
                                     />
+
+                                    <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
 
                                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-75"></div>
 
@@ -147,6 +143,14 @@ const Banner = () => {
                                                 </button>
                                             </Link>
                                         </div>
+                                    </div>
+
+                                    <div className='absolute bottom-10 right-40 hidden lg:block'>
+                                        <img
+                                            src={getImageUrl('w500', data?.poster_path)}
+                                            alt={data?.title || data?.name || 'poster-image'}
+                                            className='w-full h-[400px] object-cover rounded-md shadow-md'
+                                        />
                                     </div>
                                 </div>
                             </SwiperSlide>
