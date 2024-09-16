@@ -10,15 +10,17 @@ const Tv = () => {
 
             <CardsList url={`/trending/tv/week`} title={'Trending'} isTrending type={'tv'} />
 
-            {
-                TvShowGenres.map(
-                    (genre) => (
-                        <div key={genre.id}>
-                            <CardsList genreId={genre.id} title={genre.name} type={'tv'} />
-                        </div>
+            <div className='pb-8'>
+                {
+                    TvShowGenres.map(
+                        (genre) => (
+                            <div key={genre.id}>
+                                <CardsList genreId={genre.id} title={genre.name} type={'tv'} />
+                            </div>
+                        )
                     )
-                )
-            }
+                }
+            </div>
 
         </main>
     )

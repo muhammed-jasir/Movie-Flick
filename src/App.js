@@ -10,7 +10,7 @@ import Footer from './components/Footer'
 
 const App = () => {
     return (
-        <main>
+        <main className='2xl:container mx-auto'>
             <BrowserRouter>
                 <Header />
                 <Routes>

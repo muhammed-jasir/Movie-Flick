@@ -49,7 +49,7 @@ const Header = () => {
 
     return (
         <header className={`
-                fixed top-0 w-full z-10 py-4 px-5 text-[#FFFFFF] shadow-md
+                fixed top-0 max-w-[1536px] w-full z-10 py-4 px-5 text-[#FFFFFF] shadow-md rounded-b-md
                 ${scrolled ? 'bg-[#14213d]' : 'bg-transparent'}
             `}
         >
@@ -89,7 +89,7 @@ const Header = () => {
                         </button>
                     </form>
 
-                    <IoSearch className='cursor-pointer block lg:hidden text-3xl' />
+                    <IoSearch className='cursor-pointer hidden sm:block lg:hidden text-3xl' />
                     <IoIosNotifications className='cursor-pointer text-3xl' />
                     <FaUserCircle className='cursor-pointer text-3xl' />
 

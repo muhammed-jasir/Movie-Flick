@@ -56,7 +56,7 @@ const CardsList = ({ url, title, isTrending, type, genreId }) => {
                         <Spinner borderColor={'border-white'} />
                     </div>
                 ) : (
-                    <div className='flex gap-3 overflow-x-auto scrollbar-hide mx-3'>
+                    <div className='flex gap-5 overflow-x-auto scrollbar-hide mx-3'>
                         {
                             data.length > 0 && data.map((data, index) => (
                                 <PosterCard

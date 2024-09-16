@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { getImageUrl } from '../constants/constants';
 import moment from 'moment';
 
 const PosterCard = ({ data, isTrending, index, type }) => {
     return (
-        <div className='relative h-[360px] min-w-[230px] max-w-[230px]'>
+        <div className='relative hover:cursor-pointer rounded-md h-[350px] min-w-[230px] max-w-[230px]'>
             <img
                 src={getImageUrl('w500', data?.poster_path)}
                 alt={data?.title || data?.name || 'movie-poster'}

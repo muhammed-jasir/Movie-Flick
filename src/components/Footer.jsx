@@ -73,7 +73,7 @@ const Footer = () => {
     ];
 
     return (
-        <footer className='bg-slate-950 text-[#ffffff] pt-3 pb-[85px] sm:pb-3'>
+        <footer className='bg-slate-950 text-[#ffffff] pt-3 pb-[85px] sm:pb-3 px-0 lg:px-20 rounded-t-md'>
             <div className='w-full flex flex-col justify-between'>
                 <div className='flex flex-col md:flex-row gap-2 md:gap-8 justify-between py-5 px-6'>
                     <Link to='/'>

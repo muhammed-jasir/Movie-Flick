@@ -30,7 +30,7 @@ const BottomNavbar = () => {
     ];
 
     return (
-        <section className='fixed bottom-0 sm:hidden bg-[#14213d] text-[#FFFFFF] shadow-md w-full z-10'>
+        <section className='fixed bottom-0 sm:hidden bg-[#14213d] text-[#FFFFFF] shadow-md w-full z-10 rounded-t-md'>
             <div className='flex items-center justify-between w-full px-4 py-2'>
                 {
                     navLinks.map((navlink) => (

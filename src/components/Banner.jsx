@@ -58,7 +58,7 @@ const Banner = () => {
 
     if (loading) {
         return (
-            <div className='w-full h-[80vh] sm:h-[90vh] md:h-[100vh] flex items-center justify-center'>
+            <div className='w-full h-[535px] sm:h-[675px] md:h-[610px] flex items-center justify-center'>
                 <Spinner borderColor={'border-white'} />
             </div>
         )
@@ -96,12 +96,12 @@ const Banner = () => {
                         trendingData.map((data) => (
                             <SwiperSlide key={data.id}>
                                 <div
-                                    className='relative min-w-full h-[535px] sm:h-[675px] md:h-[610px] transition-all duration-150 ease-linear'
+                                    className='relative min-w-full h-[535px] sm:h-[675px] md:h-[610px] transition-all duration-300 ease-linear'
                                 >
                                     <img
                                         src={getImageUrl('original', data?.backdrop_path)}
                                         alt={data?.title || data?.name || 'banner-image'}
-                                        className='w-full h-full object-cover bg-[#14213d]'
+                                        className='w-full h-full object-cover bg-slate-950 cursor-pointer rounded-xl'
                                         loading='lazy'
                                     />
 

@@ -10,16 +10,17 @@ const Movies = () => {
 
             <CardsList url={`/trending/movie/week`} title={'Trending'} isTrending type={'movie'} />
 
-            {
-                MovieGenres.map(
-                    (genre) => (
-                        <div key={genre.id}>
-                            <CardsList genreId={genre.id} title={genre.name} type={'movie'} />
-                        </div>
+            <div className='pb-8'>
+                {
+                    MovieGenres.map(
+                        (genre) => (
+                            <div key={genre.id}>
+                                <CardsList genreId={genre.id} title={genre.name} type={'movie'} />
+                            </div>
+                        )
                     )
-                )
-            }
-            
+                }
+            </div>
         </main>
     )
 }
