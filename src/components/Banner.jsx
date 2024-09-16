@@ -96,7 +96,7 @@ const Banner = () => {
                         trendingData.map((data) => (
                             <SwiperSlide key={data.id}>
                                 <div
-                                    className='relative min-w-full h-[80vh] sm:h-[90vh] md:h-[100vh] transition-all duration-150 ease-linear'
+                                    className='relative min-w-full h-[535px] sm:h-[675px] md:h-[610px] transition-all duration-150 ease-linear'
                                 >
                                     <img
                                         src={getImageUrl('original', data?.backdrop_path)}

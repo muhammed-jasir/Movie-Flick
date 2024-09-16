@@ -6,6 +6,7 @@ import Movies from './pages/Movies'
 import Tv from './pages/Tv'
 import BottomNavbar from './components/BottomNavbar'
 import SearchPage from './pages/SearchPage'
+import Footer from './components/Footer'
 
 const App = () => {
     return (
@@ -18,6 +19,7 @@ const App = () => {
                     <Route path='/tv' element={<Tv />} />
                     <Route path='/search' element={<SearchPage />} />
                 </Routes>
+                <Footer />
                 <BottomNavbar />
             </BrowserRouter>
         </main>
