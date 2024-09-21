@@ -7,12 +7,14 @@ import Tv from './pages/Tv'
 import BottomNavbar from './components/BottomNavbar'
 import SearchPage from './pages/SearchPage'
 import Footer from './components/Footer'
+import ScrollToTop from './components/ScrollToTop'
 
 const App = () => {
     return (
         <main className='2xl:container mx-auto'>
             <BrowserRouter>
                 <Header />
+                <ScrollToTop />
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/movies' element={<Movies />} />

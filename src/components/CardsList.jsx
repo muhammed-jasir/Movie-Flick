@@ -45,7 +45,7 @@ const CardsList = ({ url, title, isTrending, type, genreId }) => {
     }, [url, genreId]);
 
     return (
-        <section className='flex flex-col gap-5 pt-5 px-5 overflow-hidden'>
+        <section className='flex flex-col gap-3 pt-5 px-5'>
             <h2 className='text-2xl font-semibold'>
                 {title && title}
             </h2>
@@ -56,7 +56,7 @@ const CardsList = ({ url, title, isTrending, type, genreId }) => {
                         <Spinner borderColor={'border-white'} />
                     </div>
                 ) : (
-                    <div className='flex gap-5 overflow-x-auto scrollbar-hide mx-3'>
+                    <div className='flex gap-5 overflow-x-auto scrollbar-hide mx-1.5 md:mx-3 px-1.5 md:px-3 py-2 md:py-3 overflow-hidden'>
                         {
                             data.length > 0 && data.map((data, index) => (
                                 <PosterCard

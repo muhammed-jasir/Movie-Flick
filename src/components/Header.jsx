@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import { IoIosNotifications } from 'react-icons/io'
 import { IoMenu, IoSearch } from 'react-icons/io5'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 const Header = () => {
     const [navbarToggle, setNavbarToggle] = useState(false);
     const [searchInput, setSearchInput] = useState(null);
     const [scrolled, setScrolled] = useState(false);
+
+    const navigate = useNavigate();
 
     const navLinks = [
         {
@@ -41,15 +43,15 @@ const Header = () => {
 
     }, []);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        console.log(searchInput);
-    };
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     navigate('/search');
+    //     console.log(searchInput);
+    // };
 
     return (
         <header className={`
-                fixed top-0 max-w-[1536px] w-full z-10 py-4 px-5 text-[#FFFFFF] shadow-md rounded-b-md
+                fixed top-0 max-w-[1536px] w-full z-50 py-4 px-5 text-[#FFFFFF] shadow-md rounded-b-md
                 ${scrolled ? 'bg-[#14213d]' : 'bg-transparent'}
             `}
         >
@@ -76,7 +78,7 @@ const Header = () => {
                 </nav>
 
                 <div className='flex items-center gap-3'>
-                    <form className='hidden lg:flex gap-2 items-center' onSubmit={handleSubmit}>
+                    {/* <form className='hidden lg:flex gap-2 items-center' onSubmit={handleSubmit}>
                         <input
                             type='text'
                             placeholder='Search'
@@ -87,9 +89,11 @@ const Header = () => {
                         <button>
                             <IoSearch className='cursor-pointer text-3xl' />
                         </button>
-                    </form>
+                    </form> */}
 
-                    <IoSearch className='cursor-pointer hidden sm:block lg:hidden text-3xl' />
+                    <Link to='/search'>
+                        <IoSearch className='cursor-pointer hidden sm:block lg:block text-3xl' />
+                    </Link>
                     <IoIosNotifications className='cursor-pointer text-3xl' />
                     <FaUserCircle className='cursor-pointer text-3xl' />
 

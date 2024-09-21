@@ -30,7 +30,7 @@ const BottomNavbar = () => {
     ];
 
     return (
-        <section className='fixed bottom-0 sm:hidden bg-[#14213d] text-[#FFFFFF] shadow-md w-full z-10 rounded-t-md'>
+        <section className='fixed bottom-0 sm:hidden bg-[#14213d] text-[#FFFFFF] shadow-md w-full z-50 rounded-t-md'>
             <div className='flex items-center justify-between w-full px-4 py-2'>
                 {
                     navLinks.map((navlink) => (
@@ -38,7 +38,7 @@ const BottomNavbar = () => {
                             key={navlink.label}
                             to={navlink.href}
                             className={({ isActive }) => `${isActive && 'bg-[#0A1128] w-[70px] px-1.5 py-1 rounded-md'}
-                            flex flex-col gap-1.5 justify-center items-center whitespace-nowrap transition ease-linear duration-300`}
+                            flex flex-col gap-1.5 justify-center items-center whitespace-nowrap transition.all ease-in-out duration-300`}
                         >
                             <div className='text-2xl'>
                                 {navlink.icon}
