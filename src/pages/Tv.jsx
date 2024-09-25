@@ -6,9 +6,9 @@ import { TvShowGenres } from '../constants/GenreList'
 const Tv = () => {
     return (
         <main>
-            <Banner />
+            <Banner mediaType={'tv'} />
 
-            <CardsList url={`/trending/tv/week`} title={'Trending'} isTrending type={'tv'} />
+            <CardsList endpoint={`/trending/tv/week`} title={'Trending'} isTrending type={'tv'} />
 
             <div className='pb-8'>
                 {

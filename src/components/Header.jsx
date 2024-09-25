@@ -41,7 +41,7 @@ const Header = () => {
             window.removeEventListener('scroll', handleScroll);
         };
 
-    }, []);
+    }, [handleScroll]);
 
     // const handleSubmit = (e) => {
     //     e.preventDefault();

@@ -3,14 +3,14 @@ import axiosInstance from '../axios';
 import PosterCard from './PosterCard';
 import Spinner from './Spinner';
 
-const CardsList = ({ url, title, isTrending, type, genreId }) => {
+const CardsList = ({ endpoint, title, isTrending, type, genreId }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const fetchByCategory = async () => {
         setLoading(true);
         try {
-            const response = await axiosInstance.get(`${url}`);
+            const response = await axiosInstance.get(`${endpoint}`);
             setData(response.data.results);
         } catch (error) {
             console.error("Error fetching:", error);
@@ -42,7 +42,7 @@ const CardsList = ({ url, title, isTrending, type, genreId }) => {
         } else {
             fetchByCategory();
         }
-    }, [url, genreId]);
+    }, [endpoint, genreId]);
 
     return (
         <section className='flex flex-col gap-3 pt-5 px-5'>
@@ -56,15 +56,15 @@ const CardsList = ({ url, title, isTrending, type, genreId }) => {
                         <Spinner borderColor={'border-white'} />
                     </div>
                 ) : (
-                    <div className='flex gap-5 overflow-x-auto scrollbar-hide mx-1.5 md:mx-3 px-1.5 md:px-3 py-2 md:py-3 overflow-hidden'>
+                    <div className='flex gap-5 overflow-x-auto scrollbar-hide mx-1.5 md:mx-3 px-1.5 py-2 md:py-3 overflow-hidden'>
                         {
                             data.length > 0 && data.map((data, index) => (
                                 <PosterCard
-                                    key={data.id}
+                                    key={index}
                                     data={data}
                                     index={index + 1}
                                     isTrending={isTrending}
-                                    type={data?.mediatype || type}
+                                    type={data?.media_type || type}
                                 />
                             ))
                         }

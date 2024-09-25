@@ -8,6 +8,7 @@ import BottomNavbar from './components/BottomNavbar'
 import SearchPage from './pages/SearchPage'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import DetailsPage from './pages/DetailsPage'
 
 const App = () => {
     return (
@@ -20,6 +21,7 @@ const App = () => {
                     <Route path='/movies' element={<Movies />} />
                     <Route path='/tv' element={<Tv />} />
                     <Route path='/search' element={<SearchPage />} />
+                    <Route path='/:type/:id' element={<DetailsPage />} />
                 </Routes>
                 <Footer />
                 <BottomNavbar />

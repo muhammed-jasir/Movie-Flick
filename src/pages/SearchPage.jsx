@@ -41,7 +41,6 @@ const SearchPage = () => {
                 setTotalPages(response.data.total_pages);
             }
 
-
         } catch (error) {
             console.error("Error fetching:", error);
         } finally {
@@ -51,7 +50,7 @@ const SearchPage = () => {
     };
 
     const handleScroll = () => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && page < totalPages) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight-50 && page < totalPages) {
             setPage((prev) => prev + 1);
         }
     };
@@ -87,20 +86,20 @@ const SearchPage = () => {
                 />
             </div>
 
-            <div className='max-w-6xl xl:max-w-7xl mx-auto min-h-[800px]'>
+            <div className='max-w-6xl xl:max-w-7xl mx-auto min-h-[800px] md:min-h-screen'>
                 {
                     loading ? (
                         <div className='w-full h-[500px] flex items-center justify-center'>
                             <Spinner borderColor={'border-white'} />
                         </div>
                     ) : (
-                        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2 sm:gap-x-3 md:gap-x-5 gap-y-1 sm:gap-y-3 md:gap-y-5 items-center justify-center pt-5 pb-4 w-full px-0.5 sm:px-1 md:px-4'>
+                        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2.5 sm:gap-x-3 md:gap-x-5 gap-y-2 sm:gap-y-3 md:gap-y-5 items-center justify-center pt-5 pb-4 w-full px-0.5 sm:px-1 md:px-4'>
                             {
                                 medias.map((data, index) => (
                                     <PosterCard
                                         key={index}
                                         data={data}
-                                        type={data?.media_type}
+                                        type={data.media_type}
                                         isSmall
                                     />
                                 ))

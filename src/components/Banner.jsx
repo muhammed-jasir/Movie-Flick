@@ -14,7 +14,7 @@ import { Keyboard, Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 import Spinner from './Spinner'
 
-const Banner = () => {
+const Banner = (mediaType) => {
     const [trendingData, setTrendingData] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -101,7 +101,7 @@ const Banner = () => {
                                     <img
                                         src={getImageUrl('original', data?.backdrop_path)}
                                         alt={data?.title || data?.name || 'banner-image'}
-                                        className='w-full h-full object-cover bg-slate-950 cursor-pointer rounded-xl'
+                                        className='w-full h-full object-cover bg-[#0a1128] cursor-pointer rounded-xl'
                                         loading='lazy'
                                     />
 
@@ -110,11 +110,11 @@ const Banner = () => {
                                     <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black"></div>
 
                                     <div className='absolute bottom-20 flex flex-col gap-5 max-w-full md:max-w-xl mx-5 md:mx-20 text-center md:text-left'>
-                                        <h1 className='text-4xl lg:text-5xl font-bold drop-shadow-2xl'>
+                                        <h1 className='text-4xl lg:text-5xl font-bold shadow-2xl'>
                                             {data?.title || data?.name}
                                         </h1>
 
-                                        <p className='text-lg font-semibold line-clamp-4 text-ellipsis'>
+                                        <p className='text-lg font-semibold line-clamp-3 md:line-clamp-4 text-ellipsis'>
                                             {data?.overview}
                                         </p>
 
@@ -124,20 +124,20 @@ const Banner = () => {
                                             </p>
 
                                             <p>
-                                                View: {Number(data?.popularity).toFixed(1)}
+                                                View: {Number(data?.popularity).toFixed(0)}
                                             </p>
                                         </div>
 
                                         <div className='flex gap-3 justify-center md:justify-start'>
                                             <Link to='/'>
-                                                <button className='flex items-center px-6 sm:px-8 py-2 gap-2 text-lg font-semibold cursor-pointer bg-white text-black rounded hover:bg-[#ffffffbf] whitespace-nowrap'>
+                                                <button className='flex items-center px-6 sm:px-8 py-2 gap-2 text-lg font-semibold cursor-pointer bg-white text-black rounded hover:bg-[#ffffffbf] whitespace-nowrap hover:scale-105 transition-transform duration-300 ease-in-out'>
                                                     <FaPlay />
                                                     Play
                                                 </button>
                                             </Link>
 
-                                            <Link to='/'>
-                                                <button className='flex items-center px-4 sm:px-6 py-2 gap-2 text-lg font-semibold cursor-pointer bg-[#6d6d6eb3] text-white rounded hover:bg-[#6d6d6e66] whitespace-nowrap'>
+                                            <Link to={`/${data?.media_type || mediaType}/${data?.id}`}>
+                                                <button className='flex items-center px-4 sm:px-6 py-2 gap-2 text-lg font-semibold cursor-pointer bg-[#6d6d6eb3] text-white rounded hover:bg-[#6d6d6e66] whitespace-nowrap hover:scale-105 transition-transform duration-300 ease-in-out'>
                                                     <MdInfoOutline className='text-2xl' />
                                                     More Info
                                                 </button>
@@ -145,11 +145,11 @@ const Banner = () => {
                                         </div>
                                     </div>
 
-                                    <div className='absolute bottom-10 right-40 hidden lg:block'>
+                                    <div className='absolute bottom-20 right-40 hidden lg:block min-w-[250px] max-w-[250px]'>
                                         <img
                                             src={getImageUrl('w500', data?.poster_path)}
                                             alt={data?.title || data?.name || 'poster-image'}
-                                            className='w-full h-[400px] object-cover rounded-md shadow-md'
+                                            className='w-full h-[380px] object-cover rounded-md shadow-md'
                                         />
                                     </div>
                                 </div>
