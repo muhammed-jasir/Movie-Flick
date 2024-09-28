@@ -45,10 +45,12 @@ const CardsList = ({ endpoint, title, isTrending, type, genreId }) => {
     }, [endpoint, genreId]);
 
     return (
-        <section className='flex flex-col gap-3 pt-5 px-5'>
-            <h2 className='text-2xl font-semibold'>
-                {title && title}
-            </h2>
+        <section className='flex flex-col px-5'>
+            {data.length > 0 && (
+                <h2 className='text-lg md:text-2xl font-semibold pt-3 mb-3'>
+                    {title && title}
+                </h2>
+            )}
 
             {
                 loading ? (

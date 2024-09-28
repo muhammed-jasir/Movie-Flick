@@ -72,7 +72,7 @@ const SearchPage = () => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [handleScroll]);
+    }, []);
 
     return (
         <section className='flex flex-col items-center pt-[75px] pb-4 w-full'>

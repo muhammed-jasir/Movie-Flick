@@ -42,91 +42,94 @@ const CastList = () => {
                         <Spinner />
                     </div>
                 ) : (
-                    <>
-                        <div className='pt-2 md:pt-[120px] px-0.5 md:px-8'>
-                            <h1 className='text-lg mb-1.5 px-1'>
-                                Casts
-                            </h1>
+                    <div className='pt-2 md:pt-[120px] overflow-hidden'>
+                        {casts.length > 0 && (
+                            <div className='px-0.5 md:px-8'>
+                                <h1 className='text-lg mb-1.5 px-1'>
+                                    Casts
+                                </h1>
 
-                            <div className='flex gap-2.5 overflow-x-auto scrollbar-hide py-2 px-1 mx-3'>
-                                {
-                                    casts.map((cast, index) => (
-                                        <div
-                                            key={index}
-                                            className='relative h-[196px] min-w-[140px] max-w-[140px] cursor-pointer hover:scale-105 transition.all ease-in-out duration-300'
-                                        >
-                                            {
-                                                cast?.profile_path ? (
-                                                    <img
-                                                        src={getImageUrl('w500', cast?.profile_path)}
-                                                        alt={cast?.name}
-                                                        className='h-[160px] w-full rounded-t-md object-cover bg-[#14213d]'
-                                                    />
-                                                ) : (
-                                                    <div className={`h-[160px] w-full flex justify-center items-center bg-[#14213d] rounded-t-md shadow-md`}>
-                                                        No Image found
-                                                    </div>
-                                                )
-                                            }
+                                <div className='flex gap-2.5 overflow-x-auto scrollbar-hide pb-2 px-1 mx-3'>
+                                    {
+                                        casts.map((cast, index) => (
+                                            <div
+                                                key={index}
+                                                className='relative h-[196px] min-w-[140px] max-w-[140px] cursor-pointer hover:scale-105 transition.all ease-in-out duration-300'
+                                            >
+                                                {
+                                                    cast?.profile_path ? (
+                                                        <img
+                                                            src={getImageUrl('w500', cast?.profile_path)}
+                                                            alt={cast?.name}
+                                                            className='h-[160px] w-full rounded-t-md object-cover bg-[#14213d]'
+                                                        />
+                                                    ) : (
+                                                        <div className={`h-[160px] w-full flex justify-center items-center bg-[#14213d] rounded-t-md shadow-md`}>
+                                                            No Image found
+                                                        </div>
+                                                    )
+                                                }
 
-                                            <div className='bg-black/70 w-full rounded-b-md'>
-                                                <h3 className='text-sm font-semibold text-ellipsis line-clamp-1'>
-                                                    {cast?.name}
-                                                </h3>
+                                                <div className='bg-black/70 w-full rounded-b-md px-1'>
+                                                    <h3 className='text-sm font-semibold text-ellipsis line-clamp-1 text-center'>
+                                                        {cast?.name}
+                                                    </h3>
 
-                                                <p className='text-xs font-medium line-clamp-1 text-ellipsis '>
-                                                    {cast?.character}
-                                                </p>
+                                                    <p className='text-xs font-medium line-clamp-1 text-ellipsis text-center'>
+                                                        {cast?.character}
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                    ))
-                                }
+                                        ))
+                                    }
+                                </div>
                             </div>
-                        </div>
+                        )}
 
-                        <div className='pt-3 pb-5 px-0.5 md:px-8'>
-                            <h1 className='text-lg mb-1.5 px-1'>
-                                Crews
-                            </h1>
+                        {crews.length > 0 && (
+                            <div className='px-0.5 md:px-8'>
+                                <h1 className='text-lg mb-1.5 px-1'>
+                                    Crews
+                                </h1>
 
-                            <div className='flex gap-2.5 overflow-x-auto scrollbar-hide py-2 px-1 mx-3'>
-                                {
-                                    crews.map((crew, index) => (
-                                        <div
-                                            key={index}
-                                            className='h-[196px] min-w-[140px] max-w-[140px] cursor-pointer hover:scale-105 transition.all ease-in-out duration-300'
-                                        >
-                                            {
-                                                crew?.profile_path ? (
-                                                    <img
-                                                        src={getImageUrl('w500', crew?.profile_path)}
-                                                        alt={crew?.name}
-                                                        className='h-[160px] w-full rounded-t-md object-cover bg-[#14213d]'
-                                                    />
-                                                ) : (
-                                                    <div className={`h-[160px] w-full flex justify-center items-center bg-[#14213d] rounded-t-md shadow-md`}>
-                                                        No Image found
-                                                    </div>
-                                                )
-                                            }
+                                <div className='flex gap-2.5 overflow-x-auto scrollbar-hide pt-2 px-1 mx-3 pb-2'>
+                                    {
+                                        crews.map((crew, index) => (
+                                            <div
+                                                key={index}
+                                                className='h-[196px] min-w-[140px] max-w-[140px] cursor-pointer hover:scale-105 transition.all ease-in-out duration-300'
+                                            >
+                                                {
+                                                    crew?.profile_path ? (
+                                                        <img
+                                                            src={getImageUrl('w500', crew?.profile_path)}
+                                                            alt={crew?.name}
+                                                            className='h-[160px] w-full rounded-t-md object-cover bg-[#14213d]'
+                                                        />
+                                                    ) : (
+                                                        <div className={`h-[160px] w-full flex justify-center items-center bg-[#14213d] rounded-t-md shadow-md`}>
+                                                            No Image found
+                                                        </div>
+                                                    )
+                                                }
 
-                                            <div className='bg-black/70 w-full rounded-b-md'>
-                                                <h3 className='text-sm font-semibold text-ellipsis line-clamp-1'>
-                                                    {crew?.name}
-                                                </h3>
+                                                <div className='bg-black/70 w-full rounded-b-md'>
+                                                    <h3 className='text-sm font-semibold text-ellipsis line-clamp-1 text-center'>
+                                                        {crew?.name}
+                                                    </h3>
 
-                                                <p className='text-xs font-medium line-clamp-1 text-ellipsis '>
-                                                    {crew?.job}
-                                                </p>
+                                                    <p className='text-xs font-medium line-clamp-1 text-ellipsis text-center'>
+                                                        {crew?.job}
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                    ))
-                                }
+                                        ))
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    </>
+                        )}
+                    </div>
                 )
             }
         </section>

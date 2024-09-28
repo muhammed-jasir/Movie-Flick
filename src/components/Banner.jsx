@@ -3,7 +3,7 @@ import axiosInstance from '../axios';
 import { getImageUrl } from '../constants/constants';
 import { Link } from 'react-router-dom';
 
-import { FaPlay } from 'react-icons/fa';
+import { FaPlay, FaRegCalendarAlt, FaRegClock, FaStar } from 'react-icons/fa';
 import { MdInfoOutline } from 'react-icons/md';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,6 +13,7 @@ import 'swiper/css/navigation';
 import { Keyboard, Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 import Spinner from './Spinner'
+import moment from 'moment';
 
 const Banner = (mediaType) => {
     const [trendingData, setTrendingData] = useState([]);
@@ -119,12 +120,14 @@ const Banner = (mediaType) => {
                                         </p>
 
                                         <div className='flex gap-3 text-base font-medium justify-center md:justify-start'>
-                                            <p>
-                                                Rating: {Number(data?.vote_average).toFixed(1)}
+                                            <p className='flex items-center gap-1 drop-shadow-md'>
+                                                <FaStar />
+                                                {data.vote_average ? Number(data?.vote_average).toFixed(1) : 'N/A'}
                                             </p>
 
-                                            <p>
-                                                View: {Number(data?.popularity).toFixed(0)}
+                                            <p className='flex items-center gap-1 drop-shadow-md'>
+                                                <FaRegCalendarAlt />
+                                                {moment(data?.release_date || data?.first_air_date).format('YYYY')}
                                             </p>
                                         </div>
 

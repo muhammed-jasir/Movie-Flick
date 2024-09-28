@@ -28,7 +28,7 @@ const PosterCard = ({ data, isTrending, index, type, isSmall }) => {
 
                     <div className='flex justify-between text-sm text-gray-400'>
                         <p>
-                            {moment(data.release_date).format('YYYY')}
+                            {moment(data.release_date || data.first_air_date).format('YYYY')}
                         </p>
 
                         <p className='bg-black px-[1.5px] rounded'>

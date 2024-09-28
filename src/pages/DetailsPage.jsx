@@ -8,11 +8,11 @@ const DetailsPage = () => {
     const { type, id } = useParams();
 
     return (
-        <section className='min-h-screen'>
+        <section className=''>
             <DetailsInfo />
             <CastList />
 
-            <div className='pb-8'>
+            <div className='md:px-2 md:mx-2 pb-8'>
                 <CardsList endpoint={`/${type}/${id}/similar`} title={`Similar ${type === 'movie' ? 'Movies' : 'Tv Shows'}`} type={`${type}`} />
                 <CardsList endpoint={`/${type}/${id}/recommendations`} title={`Recommented  ${type === 'movie' ? 'Movies' : 'Tv Shows'}`} type={`${type}`} />
             </div>

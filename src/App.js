@@ -9,6 +9,7 @@ import SearchPage from './pages/SearchPage'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import DetailsPage from './pages/DetailsPage'
+import PlayerPage from './pages/PlayerPage'
 
 const App = () => {
     return (
@@ -22,6 +23,7 @@ const App = () => {
                     <Route path='/tv' element={<Tv />} />
                     <Route path='/search' element={<SearchPage />} />
                     <Route path='/:type/:id' element={<DetailsPage />} />
+                    <Route path='/player/:type/:id' element={<PlayerPage />} />
                 </Routes>
                 <Footer />
                 <BottomNavbar />
