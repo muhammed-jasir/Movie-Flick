@@ -17,7 +17,7 @@ const Player = ({ videos }) => {
     };
 
     return (
-        <div className='container mx-auto px-4 py-4'>
+        <div className='container mx-auto px-4 pt-4'>
             {
                 videos.length > 0 && (
                     <>
@@ -44,14 +44,14 @@ const Player = ({ videos }) => {
                         </div>
 
                         <div className='pt-4'>
-                            <div className='relative pb-[56%] h-0 overflow-hidden rounded-xl shadow-md bg-[#14213d]'>
+                            <div className='aspect-video min-h-[190px] overflow-hidden rounded-xl shadow-md bg-[#14213d] cursor-pointer'>
                                 <iframe
                                     src={`https://www.youtube.com/embed/${videos[currentIndex].key}`}
                                     title={videos[currentIndex].name}
                                     width="100%"
                                     height="100%"
                                     loading="lazy"
-                                    className='absolute top-0 left-0 w-full h-full'
+                                    className='w-full h-full'
                                     frameBorder='0'
                                     allowFullScreen
                                 />

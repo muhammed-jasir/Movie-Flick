@@ -38,14 +38,14 @@ const CastList = () => {
         <section className='px-1'>
             {
                 loading ? (
-                    <div className="flex justify-center items-center h-40">
+                    <div className="flex justify-center items-center h-60 mt-2 md:mt-[120px]">
                         <Spinner />
                     </div>
                 ) : (
                     <div className='pt-2 md:pt-[120px] overflow-hidden'>
                         {casts.length > 0 && (
                             <div className='px-0.5 md:px-8'>
-                                <h1 className='text-lg mb-1.5 px-1'>
+                                <h1 className='text-xl mb-1.5 px-1'>
                                     Casts
                                 </h1>
 
@@ -88,7 +88,7 @@ const CastList = () => {
 
                         {crews.length > 0 && (
                             <div className='px-0.5 md:px-8'>
-                                <h1 className='text-lg mb-1.5 px-1'>
+                                <h1 className='text-xl mb-1.5 px-1'>
                                     Crews
                                 </h1>
 

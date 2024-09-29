@@ -10,7 +10,7 @@ const Movies = () => {
 
             <CardsList endpoint={`/trending/movie/week`} title={'Trending'} isTrending type={'movie'} />
 
-            <div className='pb-8'>
+            <div className='pb-5'>
                 {
                     MovieGenres.map(
                         (genre) => (

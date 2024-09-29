@@ -12,7 +12,7 @@ const DetailsPage = () => {
             <DetailsInfo />
             <CastList />
 
-            <div className='md:px-2 md:mx-2 pb-8'>
+            <div className='pb-5'>
                 <CardsList endpoint={`/${type}/${id}/similar`} title={`Similar ${type === 'movie' ? 'Movies' : 'Tv Shows'}`} type={`${type}`} />
                 <CardsList endpoint={`/${type}/${id}/recommendations`} title={`Recommented  ${type === 'movie' ? 'Movies' : 'Tv Shows'}`} type={`${type}`} />
             </div>

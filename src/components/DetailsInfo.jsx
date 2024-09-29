@@ -45,16 +45,16 @@ const DetailsInfo = () => {
     }
 
     return (
-        <div className='max-w-[1200px] mx-auto flex flex-col md:flex-row gap-8 md:gap-10 md:px-5'>
+        <div className='max-w-[1536px] mx-auto relative flex flex-col md:flex-row gap-8 md:gap-10 md:px-20'>
             <div
-                className='absolute top-0 right-0 left-0 w-full h-[550px] md:h-[590px] bg-cover bg-center bg-[#14213d] bg-no-repeat rounded-b-md'
+                className='absolute top-0 right-0 left-0 w-full h-[550px] md:h-[590px] max-w-[1536px] bg-cover bg-center bg-[#14213d] bg-no-repeat rounded-b-md'
                 style={{
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${getImageUrl('original', mediaData?.backdrop_path)})`,
                     backgroundColor: '#14213d',
                 }}
             ></div>
 
-            <div className='relative pt-40 md:pt-32 flex flex-col items-center md:items-start gap-2'>
+            <div className='pt-40 md:pt-32 flex flex-col items-center md:items-start gap-2'>
                 <div className='min-w-[230px] max-w-[230px]'>
                     {mediaData && mediaData.poster_path ? (
                         <img
@@ -127,12 +127,16 @@ const DetailsInfo = () => {
                 )}
 
                 {(mediaData?.first_air_date && mediaData?.last_air_date) && (
-                    <p className='flex items-center gap-1 drop-shadow-md justify-center md:justify-normal'>
-                        <FaRegCalendarAlt />
-                        {moment(mediaData?.first_air_date).format('MMM DD YYYY')}
-                        <span> to </span>
-                        {moment(mediaData?.last_air_date).format('MMM DD YYYY')}
-                    </p>
+                    <div className='flex flex-col md:flex-row items-center gap-3 justify-center md:justify-normal text-sm'>
+                        <p className='flex items-center gap-1 drop-shadow-md'>
+                            <span>First Aired: </span>
+                            {moment(mediaData?.first_air_date).format('MMM DD YYYY')}
+                        </p>
+                        <p className='flex items-center gap-1 drop-shadow-md'>
+                            <span>Last Aired: </span>
+                            {moment(mediaData?.last_air_date).format('MMM DD YYYY')}
+                        </p>
+                    </div>
                 )}
 
                 {(mediaData?.number_of_seasons || mediaData?.number_of_episodes) && (
@@ -194,7 +198,7 @@ const DetailsInfo = () => {
 
                 {mediaData?.overview && (
                     <div className='pt-1 md:pt-0'>
-                        <h3 className='text-lg leading-7 font-bold mb-2 md:mb-0.25 drop-shadow-md'>
+                        <h3 className='text-xl leading-7 font-bold mb-2 md:mb-0.25 drop-shadow-md'>
                             Synopsis
                         </h3>
 

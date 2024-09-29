@@ -7,7 +7,7 @@ const Home = () => {
         <main className=''>
             <Banner />
 
-            <div className='pb-8'>
+            <div className='pb-5'>
                 <CardsList endpoint={`/trending/all/week`} title={'Trending'} isTrending />
                 <CardsList endpoint={`/movie/popular`} title={'Popular Movies'} type={'movie'} />
                 <CardsList endpoint={`/tv/popular`} title={'Popular Tv Shows'} type={'tv'} />

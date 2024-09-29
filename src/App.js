@@ -10,6 +10,7 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import DetailsPage from './pages/DetailsPage'
 import PlayerPage from './pages/PlayerPage'
+import ExplorePage from './pages/ExplorePage'
 
 const App = () => {
     return (
@@ -24,6 +25,7 @@ const App = () => {
                     <Route path='/search' element={<SearchPage />} />
                     <Route path='/:type/:id' element={<DetailsPage />} />
                     <Route path='/player/:type/:id' element={<PlayerPage />} />
+                    <Route path='/explore/:type/:title' element={<ExplorePage />} />
                 </Routes>
                 <Footer />
                 <BottomNavbar />

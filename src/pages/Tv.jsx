@@ -10,7 +10,7 @@ const Tv = () => {
 
             <CardsList endpoint={`/trending/tv/week`} title={'Trending'} isTrending type={'tv'} />
 
-            <div className='pb-8'>
+            <div className='pb-5'>
                 {
                     TvShowGenres.map(
                         (genre) => (

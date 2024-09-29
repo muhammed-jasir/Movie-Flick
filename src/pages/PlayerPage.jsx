@@ -14,7 +14,6 @@ const PlayerPage = () => {
     const [bloopers, setBloopers] = useState([]);
 
     const [isEmpty, setIsEmpty] = useState(false);
-
     const [loading, setLoading] = useState(false);
 
     const { id, type } = useParams();
@@ -65,7 +64,7 @@ const PlayerPage = () => {
     }
 
     return (
-        <div className='pt-20 pb-5'>
+        <div className='pt-20 pb-5 min-h-screen'>
             <Player videos={trailerVideos}  />
             <Player videos={teaserVideos} />
             <Player videos={clipVideos} />

@@ -111,7 +111,7 @@ const Banner = (mediaType) => {
                                     <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black"></div>
 
                                     <div className='absolute bottom-20 flex flex-col gap-5 max-w-full md:max-w-xl mx-5 md:mx-20 text-center md:text-left'>
-                                        <h1 className='text-4xl lg:text-5xl font-bold shadow-2xl'>
+                                        <h1 className='text-4xl lg:text-5xl font-bold'>
                                             {data?.title || data?.name}
                                         </h1>
 
@@ -132,7 +132,7 @@ const Banner = (mediaType) => {
                                         </div>
 
                                         <div className='flex gap-3 justify-center md:justify-start'>
-                                            <Link to='/'>
+                                            <Link to={`/player/${data?.media_type || mediaType}/${data?.id}`}>
                                                 <button className='flex items-center px-6 sm:px-8 py-2 gap-2 text-lg font-semibold cursor-pointer bg-white text-black rounded hover:bg-[#ffffffbf] whitespace-nowrap hover:scale-105 transition-transform duration-300 ease-in-out'>
                                                     <FaPlay />
                                                     Play
