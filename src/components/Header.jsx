@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import { IoIosNotifications } from 'react-icons/io'
 import { IoMenu, IoSearch } from 'react-icons/io5'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const Header = () => {
     const [navbarToggle, setNavbarToggle] = useState(false);
-    const [searchInput, setSearchInput] = useState(null);
     const [scrolled, setScrolled] = useState(false);
-
-    const navigate = useNavigate();
 
     const navLinks = [
         {
@@ -26,28 +23,22 @@ const Header = () => {
         },
     ];
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 0) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
-        };
+    const handleScroll = useCallback(() => {
+        if (window.scrollY > 0) {
+            setScrolled(true);
+        } else {
+            setScrolled(false);
+        }
+    }, []);
 
+    useEffect(() => {
         window.addEventListener('scroll', handleScroll);
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
 
-    }, []);
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     navigate('/search');
-    //     console.log(searchInput);
-    // };
+    }, [handleScroll]);
 
     return (
         <header className={`
@@ -78,19 +69,6 @@ const Header = () => {
                 </nav>
 
                 <div className='flex items-center gap-3'>
-                    {/* <form className='hidden lg:flex gap-2 items-center' onSubmit={handleSubmit}>
-                        <input
-                            type='text'
-                            placeholder='Search'
-                            className='px-2 py-2 w-[250px] rounded-md bg-[#0a1128e1] outline-none'
-                            onChange={(e) => setSearchInput(e.target.value)}
-                        />
-
-                        <button>
-                            <IoSearch className='cursor-pointer text-3xl' />
-                        </button>
-                    </form> */}
-
                     <Link to='/search'>
                         <IoSearch className='cursor-pointer hidden sm:block lg:block text-3xl' />
                     </Link>

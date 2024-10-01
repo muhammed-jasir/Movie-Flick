@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import axiosInstance from '../axios';
 import Spinner from '../components/Spinner';
@@ -6,7 +6,7 @@ import PosterCard from '../components/PosterCard';
 
 const ExplorePage = () => {
     const { state } = useLocation();
-    const { endpoint, genreId } = state ;
+    const { endpoint, genreId } = state || {};
 
     const { type, title } = useParams();
 
@@ -30,14 +30,9 @@ const ExplorePage = () => {
                 }
             });
 
-            if (page > 1) {
-                setData((prev) => [...prev, ...response.data.results]);
-            } else {
-                setData([...response.data.results]);
-            }
+            setData((prev) => [...prev, ...response.data.results]);
 
             setTotalPages(response.data.total_pages);
-            console.log(response.data.results);
         } catch (error) {
             console.error("Error fetching:", error);
         } finally {
@@ -47,7 +42,7 @@ const ExplorePage = () => {
     };
 
     const fetchByGenreId = async () => {
-        if (page > 1 && page <= totalPages) {
+        if (page > 1) {
             setLoadingMore(true);
         } else {
             setLoading(true);
@@ -62,14 +57,9 @@ const ExplorePage = () => {
                 },
             });
 
-            if (page > 1) {
-                setData((prev) => [...prev, ...response.data.results]);
-            } else {
-                setData([...response.data.results]);
-            }
+            setData((prev) => [...prev, ...response.data.results]);
 
             setTotalPages(response.data.total_pages);
-            console.log(response.data.results);
         } catch (error) {
             console.error("Error fetching:", error);
         } finally {
@@ -78,11 +68,24 @@ const ExplorePage = () => {
         }
     };
 
-    const handleScroll = () => {
+    const throttle = (func, delay) => {
+        let lastCall = 0;
+        return function (...args) {
+            const now = new Date().getTime();
+            if (now - lastCall < delay) {
+                return;
+            }
+            lastCall = now;
+            return func(...args);
+        };
+    };
+
+    const handleScroll = useCallback(throttle(() => {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && page < totalPages) {
             setPage((prev) => prev + 1);
         }
-    };
+
+    }, 50), [page, totalPages]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -98,7 +101,7 @@ const ExplorePage = () => {
         } else {
             fetchByCategory();
         }
-    }, [endpoint, genreId, page]);
+    }, [endpoint, genreId, page, type]);
 
     return (
         <div className='container mx-auto min-h-[800px] md:min-h-screen flex justify-center items-center'>
@@ -110,8 +113,8 @@ const ExplorePage = () => {
                         </div>
                     ) : (
                         <>
-                            <div className='text-2xl font-bold capitalize flex py-3 justify-center'>
-                                {title}
+                            <div className='text-2xl md:text-3xl font-bold capitalize text-center py-3'>
+                                {title.replace(/-/g, ' ')}
                             </div>
 
                             <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-x-2.5 md:gap-x-5 gap-y-3 md:gap-y-5 pt-5 pb-5 w-full px-1.5 md:px-4'>

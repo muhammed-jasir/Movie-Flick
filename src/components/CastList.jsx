@@ -49,7 +49,7 @@ const CastList = () => {
                                     Casts
                                 </h1>
 
-                                <div className='flex gap-2.5 overflow-x-auto scrollbar-hide pb-2 px-1 mx-3'>
+                                <div className='flex gap-2.5 overflow-x-auto scrollbar-hide pb-2 pt-1 px-1 mx-3'>
                                     {
                                         casts.map((cast, index) => (
                                             <div

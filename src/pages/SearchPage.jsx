@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import axiosInstance from '../axios';
 import PosterCard from '../components/PosterCard';
 import Spinner from '../components/Spinner';
@@ -11,8 +11,10 @@ const SearchPage = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [loadingMore, setLoadingMore] = useState(false);
 
+    const searchTimer = useRef(null);
+
     const fetchData = async () => {
-        if (page > 1 && page <= totalPages) {
+        if (page > 1) {
             setLoadingMore(true);
         } else {
             setLoading(true);
@@ -26,16 +28,11 @@ const SearchPage = () => {
                 }
             });
 
-            if (response) {
-                const results = response.data.results.filter((result) => result.media_type !== 'person')
-                if (page > 1) {
-                    setMedias((prev) => [...prev, ...results]);
-                } else {
-                    setMedias([...results]);
-                }
-                setTotalPages(response.data.total_pages);
-            }
+            const results = response.data.results.filter((result) => result.media_type !== 'person');
 
+            setMedias((prev) => [...prev, ...results]);
+
+            setTotalPages(response.data.total_pages);
         } catch (error) {
             console.error("Error fetching:", error);
         } finally {
@@ -44,21 +41,29 @@ const SearchPage = () => {
         }
     };
 
-    const handleScroll = () => {
+    const throttle = (func, delay) => {
+        let lastCall = 0;
+        return function (...args) {
+            const now = new Date().getTime();
+            if (now - lastCall < delay) {
+                return;
+            }
+            lastCall = now;
+            return func(...args);
+        };
+    };
+
+    const handleScroll = useCallback(throttle(() => {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && page < totalPages) {
             setPage((prev) => prev + 1);
         }
-    };
+
+    }, 50), [page, totalPages]);
 
     useEffect(() => {
-        if (search) {
+        if (search.trim()) {
             fetchData();
-        } else {
-            setMedias([]);
-            setPage(1);
-            setTotalPages(0);
         }
-
     }, [search, page]);
 
     useEffect(() => {
@@ -69,14 +74,22 @@ const SearchPage = () => {
         };
     }, [handleScroll]);
 
-    const handleSearch = (e)  => {
-        setSearch(e.target.value);
-        setPage(1);
-    }
+    const handleSearch = (e) => {
+        const value = e.target.value;
+
+        clearTimeout(searchTimer.current); 
+
+        searchTimer.current = setTimeout(() => {
+            setSearch(value);
+            setPage(1);
+            setMedias([]);
+        }, 100);
+
+    };
 
     return (
-        <section className='container mx-auto flex flex-col items-center pt-[75px] pb-4 w-full'>
-            <div className='flex justify-center items-center pt-5 px-2.5 sm:px-5 w-full'>
+        <section className='container mx-auto min-h-[800px] md:min-h-screen flex flex-col items-center pt-20 pb-4 w-full'>
+            <form className='flex justify-center items-center pt-5 px-2.5 sm:px-5 w-full'>
                 <input
                     type='text'
                     placeholder='Search'
@@ -84,9 +97,9 @@ const SearchPage = () => {
                     onChange={handleSearch}
                     value={search}
                 />
-            </div>
+            </form>
 
-            <div className='min-h-[800px] md:min-h-screen flex justify-center items-center'>
+            <div className='flex flex-col justify-center items-center'>
                 {
                     loading ? (
                         <div className='w-full h-[500px] flex items-center justify-center'>
@@ -115,6 +128,7 @@ const SearchPage = () => {
                         </div>
                     )
                 }
+
             </div>
         </section >
     )
