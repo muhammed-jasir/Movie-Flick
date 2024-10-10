@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import axiosInstance from '../axios';
+import axiosInstance from '../services/axios';
 import PosterCard from './PosterCard';
 import Spinner from './Spinner';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';

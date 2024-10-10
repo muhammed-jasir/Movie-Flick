@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import axiosInstance from '../axios';
-import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
+import axiosInstance from '../services/axios';
 import Spinner from '../components/Spinner';
 import Player from '../components/Player';
 

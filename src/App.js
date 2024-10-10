@@ -11,6 +11,9 @@ import ScrollToTop from './components/ScrollToTop'
 import DetailsPage from './pages/DetailsPage'
 import PlayerPage from './pages/PlayerPage'
 import ExplorePage from './pages/ExplorePage'
+import SignupPage from './pages/SignupPage'
+import LoginPage from './pages/LoginPage'
+import { ToastContainer } from 'react-toastify'
 
 const App = () => {
     return (
@@ -18,6 +21,7 @@ const App = () => {
             <BrowserRouter>
                 <Header />
                 <ScrollToTop />
+                <ToastContainer theme="dark" newestOnTop={true} />
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/movies' element={<Movies />} />
@@ -26,6 +30,8 @@ const App = () => {
                     <Route path='/:type/:id' element={<DetailsPage />} />
                     <Route path='/player/:type/:id' element={<PlayerPage />} />
                     <Route path='/explore/:type/:title' element={<ExplorePage />} />
+                    <Route path='/signup' element={<SignupPage />} />
+                    <Route path='/login' element={<LoginPage />} />
                 </Routes>
                 <Footer />
                 <BottomNavbar />

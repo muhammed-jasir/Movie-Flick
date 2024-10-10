@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axiosInstance from '../axios';
+import axiosInstance from '../services/axios';
 import { useParams } from 'react-router-dom';
 import { getImageUrl } from '../constants/constants';
 import Spinner from './Spinner';

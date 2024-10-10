@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import axiosInstance from '../axios';
+import axiosInstance from '../services/axios';
 import { getImageUrl } from '../constants/constants';
 import { Link } from 'react-router-dom';
 
-import { FaPlay, FaRegCalendarAlt, FaRegClock, FaStar } from 'react-icons/fa';
+import { FaPlay, FaRegCalendarAlt, FaStar } from 'react-icons/fa';
 import { MdInfoOutline } from 'react-icons/md';
 
 import { Swiper, SwiperSlide } from 'swiper/react';

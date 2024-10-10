@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
-import axiosInstance from '../axios';
+import axiosInstance from '../services/axios';
 import Spinner from '../components/Spinner';
 import PosterCard from '../components/PosterCard';
 

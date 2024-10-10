@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axiosInstance from '../axios';
+import axiosInstance from '../services/axios';
 import { Link, useParams } from 'react-router-dom';
 import { getImageUrl } from '../constants/constants';
 import { FaPlay, FaRegCalendarAlt, FaRegClock, FaStar } from 'react-icons/fa';

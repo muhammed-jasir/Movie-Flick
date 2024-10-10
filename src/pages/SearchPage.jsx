@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import axiosInstance from '../axios';
+import axiosInstance from '../services/axios';
 import PosterCard from '../components/PosterCard';
 import Spinner from '../components/Spinner';
 
@@ -77,14 +77,13 @@ const SearchPage = () => {
     const handleSearch = (e) => {
         const value = e.target.value;
 
-        clearTimeout(searchTimer.current); 
+        clearTimeout(searchTimer.current);
 
         searchTimer.current = setTimeout(() => {
             setSearch(value);
             setPage(1);
             setMedias([]);
         }, 100);
-
     };
 
     return (
