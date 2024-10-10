@@ -43,6 +43,10 @@ export const AuthContextProvider = ({ children }) => {
         return sendPasswordResetEmail(auth, email);
     }
 
+    const googleSignin = () => {
+        
+    }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);

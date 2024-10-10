@@ -13,7 +13,7 @@ import PlayerPage from './pages/PlayerPage'
 import ExplorePage from './pages/ExplorePage'
 import SignupPage from './pages/SignupPage'
 import LoginPage from './pages/LoginPage'
-import { ToastContainer } from 'react-toastify'
+import ResetPassword from './components/ResetPassword'
 
 const App = () => {
     return (
@@ -21,7 +21,6 @@ const App = () => {
             <BrowserRouter>
                 <Header />
                 <ScrollToTop />
-                <ToastContainer theme="dark" newestOnTop={true} />
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/movies' element={<Movies />} />
@@ -32,6 +31,7 @@ const App = () => {
                     <Route path='/explore/:type/:title' element={<ExplorePage />} />
                     <Route path='/signup' element={<SignupPage />} />
                     <Route path='/login' element={<LoginPage />} />
+                    <Route path='/reset' element={<ResetPassword />} />
                 </Routes>
                 <Footer />
                 <BottomNavbar />
