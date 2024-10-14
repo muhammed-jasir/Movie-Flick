@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import OAuth from '../components/OAuth';
+import Spinner from '../components/Spinner';
 
 const initialValues = {
     email: '',
@@ -45,7 +46,7 @@ const LoginPage = () => {
     });
 
     return (
-        <div className='min-h-screeen pt-20 flex justify-center'>
+        <div className='min-h-screen pt-20 flex justify-center'>
             <form
                 className='flex flex-col items-center w-full gap-5 max-w-lg bg-slate-900 px-3 md:px-5 py-10 my-10 rounded-md'
                 onSubmit={handleSubmit}
@@ -83,7 +84,7 @@ const LoginPage = () => {
                         type={showPassword ? 'text' : 'password'}
                         placeholder='Password'
                         id='password'
-                        className={`w-full h-12 rounded bg-[#14213d] text-white border-0 outline-none font-semibold text-base px-3 md:px-5 py-4 ${errors.email && touched.email && 'outline outline-orange-700'}`}
+                        className={`w-full h-12 rounded bg-[#14213d] text-white border-0 outline-none font-semibold text-base px-3 md:px-5 py-4 ${errors.password && touched.password && 'outline outline-orange-700'}`}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.password}
@@ -112,9 +113,20 @@ const LoginPage = () => {
                         className='w-full bg-[#e50914] hover:bg-[#e50914cb] text-white p-3 text-base font-semibold rounded cursor-pointer'
                         disabled={isSubmitting || !isValid}
                     >
-                        <span className='text-lg'>
-                            Login
-                        </span>
+                        {
+                            isSubmitting ? (
+                                <div className='flex items-center justify-center gap-3'>
+                                    <Spinner borderColor={'border-white'} />
+                                    <span className='text-lg'>
+                                        Loading...
+                                    </span>
+                                </div>
+                            ) : (
+                                <span className='text-lg'>
+                                    Login
+                                </span>
+                            )
+                        }
                     </button>
                 </div>
 
@@ -127,7 +139,11 @@ const LoginPage = () => {
                     </Link>
                 </div>
 
+                <div className='w-full'>
+                    <span className='flex justify-center text-lg'>or</span>
 
+                    <OAuth />
+                </div>
             </form>
         </div>
     )

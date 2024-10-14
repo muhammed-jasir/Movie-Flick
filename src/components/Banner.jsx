@@ -79,7 +79,7 @@ const Banner = (mediaType) => {
                     spaceBetween={30}
                     centeredSlides={true}
                     grabCursor={false}
-                    lazy={true}
+                    lazy={{ loadPrevNext: true }}                    
                     autoplay={{
                         delay: 3000,
                         disableOnInteraction: false,
@@ -94,8 +94,8 @@ const Banner = (mediaType) => {
                     modules={[Keyboard, Autoplay, Pagination, Navigation]}
                 >
                     {
-                        trendingData.map((data) => (
-                            <SwiperSlide key={data.id}>
+                        trendingData.map((data, index) => (
+                            <SwiperSlide key={index}>
                                 <div
                                     className='relative min-w-full h-[535px] sm:h-[675px] md:h-[610px] transition-all duration-300 ease-linear'
                                 >
@@ -103,7 +103,7 @@ const Banner = (mediaType) => {
                                         src={getImageUrl('original', data?.backdrop_path)}
                                         alt={data?.title || data?.name || 'banner-image'}
                                         className='w-full h-full object-cover bg-[#0a1128] cursor-pointer rounded-xl'
-                                        loading='lazy'
+                                        loading="lazy"
                                     />
 
                                     <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>

@@ -39,7 +39,7 @@ const CastList = () => {
             {
                 loading ? (
                     <div className="flex justify-center items-center h-60 mt-2 md:mt-[120px]">
-                        <Spinner />
+                        <Spinner borderColor={'border-white'} />
                     </div>
                 ) : (
                     <div className='pt-2 md:pt-[120px] overflow-hidden'>

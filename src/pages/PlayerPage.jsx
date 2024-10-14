@@ -49,7 +49,7 @@ const PlayerPage = () => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <Spinner />
+                <Spinner borderColor={'border-white'} />
             </div>
         );
     }
@@ -64,7 +64,7 @@ const PlayerPage = () => {
 
     return (
         <div className='pt-20 pb-5 min-h-screen'>
-            <Player videos={trailerVideos}  />
+            <Player videos={trailerVideos} />
             <Player videos={teaserVideos} />
             <Player videos={clipVideos} />
             <Player videos={featuretteVideos} />

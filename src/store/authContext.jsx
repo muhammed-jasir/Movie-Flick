@@ -1,38 +1,34 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, sendPasswordResetEmail } from 'firebase/auth';
-import { setDoc, doc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { setDoc, doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../services/firebase";
 
 const AuthContext = createContext(null);
 
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    console.log(user)
+    console.log(user);
 
     const signup = async (name, email, password, phone) => {
-        try {
-            const res = await createUserWithEmailAndPassword(auth, email, password);
-            const user = res.user;
+        const res = await createUserWithEmailAndPassword(auth, email, password);
+        const user = res.user;
 
-            await updateProfile(user, {
-                displayName: name,
-            });
+        await updateProfile(user, {
+            displayName: name,
+        });
 
-            const userRef = doc(db, "users", user.uid);
-            await setDoc(userRef, {
-                uid: user.uid,
-                name,
-                email,
-                phone,
-                authProvider: 'local',
-            });
-        } catch (error) {
-            throw new Error(error.message);
-        }
+        const userRef = doc(db, "users", user.uid);
+        await setDoc(userRef, {
+            uid: user.uid,
+            name,
+            email,
+            phone,
+            authProvider: 'local',
+        });
     }
 
     const login = (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password)
+        return signInWithEmailAndPassword(auth, email, password);
     }
 
     const signout = () => {
@@ -43,8 +39,24 @@ export const AuthContextProvider = ({ children }) => {
         return sendPasswordResetEmail(auth, email);
     }
 
-    const googleSignin = () => {
-        
+    const googleSignin = async () => {
+        const provider = new GoogleAuthProvider();
+        const res = await signInWithPopup(auth, provider);
+        const user = res.user;
+
+        const userRef = doc(db, "users", user.uid);
+
+        const userDoc = await getDoc(userRef);
+
+        if (!userDoc.exists()) {
+            await setDoc(userRef, {
+                uid: user.uid,
+                name: user.displayName,
+                email: user.email,
+                phone: user.phoneNumber,
+                authProvider: 'google',
+            });
+        }
     }
 
     useEffect(() => {
@@ -58,7 +70,7 @@ export const AuthContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ signup, login, signout, user, resetPassword }}>
+        <AuthContext.Provider value={{ signup, login, signout, user, resetPassword, googleSignin }}>
             {children}
         </AuthContext.Provider>
     );
