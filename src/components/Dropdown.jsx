@@ -43,7 +43,7 @@ const Dropdown = ({ user }) => {
             <FaUserCircle className='cursor-pointer text-3xl' onClick={() => setOpen(!open)} />
 
             {open && (
-                <div className='absolute top-14 right-5 bg-[#14213d] rounded-md px-2.5 py-5 w-full max-w-[200px]'>
+                <div className='absolute top-14 right-5 bg-[#14213d] rounded-md px-2.5 py-5 w-[200px]'>
                     <h4 className='text-base truncate'>
                         {user.displayName}
                     </h4>

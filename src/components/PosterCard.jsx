@@ -32,7 +32,7 @@ const PosterCard = ({ data, isTrending, index, type, isSmall }) => {
                         </p>
 
                         <p className=''>
-                            {Number(data?.vote_average).toFixed(1)}
+                            {data?.vote_average > 0 ? Number(data.vote_average).toFixed(1) : 'N/A'}
                         </p>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ import { TvShowGenres } from '../constants/GenreList'
 
 const Tv = () => {
     return (
-        <main>
+        <section>
             <Banner mediaType={'tv'} />
 
             <CardsList endpoint={`/trending/tv/week`} title={'Trending'} isTrending type={'tv'} />
@@ -22,7 +22,7 @@ const Tv = () => {
                 }
             </div>
 
-        </main>
+        </section>
     )
 }
 

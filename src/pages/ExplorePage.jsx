@@ -104,7 +104,7 @@ const ExplorePage = () => {
     }, [endpoint, genreId, page, type]);
 
     return (
-        <div className='container mx-auto min-h-[800px] md:min-h-screen flex justify-center items-center'>
+        <section className='container mx-auto min-h-[800px] md:min-h-screen flex justify-center items-center'>
             <div className='pt-20'>
                 {
                     loading ? (
@@ -139,7 +139,7 @@ const ExplorePage = () => {
                     )
                 }
             </div>
-        </div>
+        </section>
     )
 }
 

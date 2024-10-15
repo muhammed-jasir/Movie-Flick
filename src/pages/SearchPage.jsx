@@ -14,8 +14,6 @@ const SearchPage = () => {
 
     const searchTimer = useRef(null);
 
-    console.log(medias)
-
     const fetchData = async () => {
         if (page > 1) {
             setLoadingMore(true);
@@ -96,7 +94,7 @@ const SearchPage = () => {
             setSearch(value);
             setPage(1);
             setMedias([]);
-        }, 50);
+        }, 20);
     };
 
     const handleTabClick = (tab) => {

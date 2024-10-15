@@ -90,7 +90,7 @@ const DetailsInfo = () => {
                 )}
 
                 <div className='flex flex-row gap-3 justify-center md:justify-normal text-base'>
-                    {mediaData?.vote_average && (
+                    {mediaData && (
                         <p className='flex items-center gap-1 drop-shadow-md'>
                             <FaStar />
                             {mediaData.vote_average > 0 ? Number(mediaData.vote_average).toFixed(1) : 'N/A'}

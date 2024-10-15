@@ -4,7 +4,7 @@ import CardsList from '../components/CardsList'
 
 const Home = () => {
     return (
-        <main className=''>
+        <section className=''>
             <Banner />
 
             <div className='pb-5'>
@@ -19,7 +19,7 @@ const Home = () => {
                 <CardsList endpoint={`/tv/airing_today`} title={'Airing Today'} type={'tv'} />
             </div>
 
-        </main>
+        </section>
     )
 }
 

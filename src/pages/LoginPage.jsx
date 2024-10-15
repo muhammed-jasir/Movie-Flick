@@ -46,7 +46,7 @@ const LoginPage = () => {
     });
 
     return (
-        <div className='min-h-screen pt-20 flex justify-center'>
+        <section className='min-h-screen pt-20 flex justify-center'>
             <form
                 className='flex flex-col items-center w-full gap-5 max-w-lg bg-slate-900 px-3 md:px-5 py-10 my-10 rounded-md'
                 onSubmit={handleSubmit}
@@ -145,7 +145,7 @@ const LoginPage = () => {
                     <OAuth />
                 </div>
             </form>
-        </div>
+        </section>
     )
 }
 
