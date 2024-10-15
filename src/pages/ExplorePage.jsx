@@ -85,7 +85,7 @@ const ExplorePage = () => {
             setPage((prev) => prev + 1);
         }
 
-    }, 50), [page, totalPages]);
+    }, 100), [page, totalPages]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -123,7 +123,8 @@ const ExplorePage = () => {
                                         key={index}
                                         data={data}
                                         type={data.media_type || type}
-                                        isSmall />
+                                        isSmall
+                                    />
                                 ))}
                             </div>
                         </>

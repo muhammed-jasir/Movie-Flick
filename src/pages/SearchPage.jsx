@@ -4,6 +4,7 @@ import PosterCard from '../components/PosterCard';
 import Spinner from '../components/Spinner';
 
 const SearchPage = () => {
+    const [activeTab, setActiveTab] = useState('multi');
     const [search, setSearch] = useState('');
     const [medias, setMedias] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -13,6 +14,8 @@ const SearchPage = () => {
 
     const searchTimer = useRef(null);
 
+    console.log(medias)
+
     const fetchData = async () => {
         if (page > 1) {
             setLoadingMore(true);
@@ -21,14 +24,20 @@ const SearchPage = () => {
         }
 
         try {
-            const response = await axiosInstance.get('/search/multi', {
+            const response = await axiosInstance.get(`/search/${activeTab}`, {
                 params: {
                     query: search,
                     page: page,
                 }
             });
+            
+            let results;
 
-            const results = response.data.results.filter((result) => result.media_type !== 'person');
+            if (activeTab === 'multi') {
+                results = response.data.results.filter((result) => result.media_type !== 'person');
+            } else {
+                results = response.data.results;
+            }
 
             setMedias((prev) => [...prev, ...results]);
 
@@ -58,13 +67,17 @@ const SearchPage = () => {
             setPage((prev) => prev + 1);
         }
 
-    }, 50), [page, totalPages]);
+    }, 100), [page, totalPages]);
 
     useEffect(() => {
-        if (search.trim()) {
+        if (search.trim().length > 0) {
             fetchData();
+        } else {
+            setMedias([]);
+            setPage(1);
+            setTotalPages(0);
         }
-    }, [search, page]);
+    }, [search, page, activeTab]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -83,15 +96,42 @@ const SearchPage = () => {
             setSearch(value);
             setPage(1);
             setMedias([]);
-        }, 100);
+        }, 50);
     };
+
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
+        setMedias([]);
+        setPage(1);
+    }
 
     return (
         <section className='container mx-auto min-h-[800px] md:min-h-screen flex flex-col items-center pt-20 pb-4 w-full'>
-            <form className='flex justify-center items-center pt-5 px-2.5 sm:px-5 w-full'>
+            <div className='pt-3 flex items-center gap-2'>
+                <button
+                    className={`py-1 px-4 rounded ${activeTab === 'multi' ? 'bg-red-600' : 'bg-blue-600'} hover:bg-red-700`}
+                    onClick={() => handleTabClick('multi')}
+                >
+                    All
+                </button>
+                <button
+                    className={`py-1 px-3 rounded ${activeTab === 'movie' ? 'bg-red-600' : 'bg-blue-600'} hover:bg-red-700`}
+                    onClick={() => handleTabClick('movie')}
+                >
+                    Movies
+                </button>
+                <button
+                    className={`py-1 px-3 rounded ${activeTab === 'tv' ? 'bg-red-600' : 'bg-blue-600'} hover:bg-red-700`}
+                    onClick={() => handleTabClick('tv')}
+                >
+                    Tv Shows
+                </button>
+            </div>
+            
+            <form className='flex justify-center items-center pt-3 px-2.5 sm:px-5 w-full'>
                 <input
                     type='text'
-                    placeholder='Search'
+                    placeholder={`Search for ${activeTab === 'multi' ? 'movies & tv shows' : activeTab === 'tv' ? 'tv shows' : 'movies'}`}
                     className='max-w-xl w-full h-12 px-5 py-3 rounded-md bg-[#14213d] text-[#ffffff] text-lg outline-none shadow-md'
                     onChange={handleSearch}
                     value={search}
@@ -104,18 +144,23 @@ const SearchPage = () => {
                         <div className='w-full h-[500px] flex items-center justify-center'>
                             <Spinner borderColor={'border-white'} />
                         </div>
-                    ) : (
+                    ) : medias.length > 0 ? (
                         <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-x-2.5 md:gap-x-5 gap-y-3 md:gap-y-5 pt-5 pb-5 w-full px-1.5 md:px-4'>
                             {
                                 medias.map((data, index) => (
                                     <PosterCard
                                         key={index}
                                         data={data}
-                                        type={data.media_type}
+                                        type={activeTab === 'multi' ? data.media_type : activeTab}
                                         isSmall
                                     />
                                 ))
                             }
+                        </div>
+                    ) : search.length > 0 && (
+                        <div className='flex flex-col items-center py-10'>
+                            <h2 className='text-2xl text-white'>No results found</h2>
+                            <p className='text-white mt-2'>Try searching for something else.</p>
                         </div>
                     )
                 }
@@ -127,7 +172,6 @@ const SearchPage = () => {
                         </div>
                     )
                 }
-
             </div>
         </section >
     )

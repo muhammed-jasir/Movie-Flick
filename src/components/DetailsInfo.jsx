@@ -93,7 +93,7 @@ const DetailsInfo = () => {
                     {mediaData?.vote_average && (
                         <p className='flex items-center gap-1 drop-shadow-md'>
                             <FaStar />
-                            {mediaData.vote_average ? Number(mediaData.vote_average).toFixed(1) : 'N/A'}
+                            {mediaData.vote_average > 0 ? Number(mediaData.vote_average).toFixed(1) : 'N/A'}
                         </p>
                     )}
 

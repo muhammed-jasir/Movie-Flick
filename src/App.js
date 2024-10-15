@@ -14,6 +14,7 @@ import ExplorePage from './pages/ExplorePage'
 import SignupPage from './pages/SignupPage'
 import LoginPage from './pages/LoginPage'
 import ResetPassword from './components/ResetPassword'
+import NotFound from './pages/NotFound'
 
 const App = () => {
     return (
@@ -32,6 +33,7 @@ const App = () => {
                     <Route path='/signup' element={<SignupPage />} />
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/reset' element={<ResetPassword />} />
+                    <Route path='*' element={<NotFound />} />
                 </Routes>
                 <Footer />
                 <BottomNavbar />

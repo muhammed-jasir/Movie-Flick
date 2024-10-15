@@ -12,7 +12,7 @@ const PosterCard = ({ data, isTrending, index, type, isSmall }) => {
                         <img
                             src={getImageUrl('w500', data?.poster_path)}
                             alt={data?.title || data?.name || 'movie-poster'}
-                            className={`${isSmall ? 'h-[0px] sm:h-[250px] md:h-[300px]' : 'h-[300px]'} w-full object-cover rounded-t-md shadow-md bg-[#14213d]`}
+                            className={`${isSmall ? 'h-[180px] sm:h-[250px] md:h-[300px]' : 'h-[300px]'} w-full object-cover rounded-t-md shadow-md bg-[#14213d]`}
                         />
                     ) : (
                         <div className={`${isSmall ? 'h-[180px] sm:h-[250px] md:h-[300px]' : 'h-[300px]'} w-full flex justify-center items-center bg-[#14213d] rounded-t-md shadow-md`}>
