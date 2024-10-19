@@ -110,7 +110,6 @@ const SignupPage = () => {
                     )}
                 </div>
 
-
                 <div className='w-full'>
                     <label htmlFor='phone' className='text-white font-semibold block mb-1'>
                         Phone
@@ -122,6 +121,7 @@ const SignupPage = () => {
                         id='phone'
                         className={`w-full h-12 rounded bg-[#14213d] text-white border-0 outline-none font-semibold text-base px-3 md:px-5 py-4 ${errors.phone && touched.phone && 'outline outline-orange-700'}`}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         value={values.phone}
                     />
 
@@ -129,7 +129,6 @@ const SignupPage = () => {
                         <p className='text-orange-700 font-medium mt-1.5 text-sm'>{errors.phone}</p>
                     )}
                 </div>
-
 
                 <div className='w-full relative'>
                     <label htmlFor='password' className='text-white font-semibold block mb-1'>
@@ -157,7 +156,6 @@ const SignupPage = () => {
                         <p className='text-orange-700 font-medium mt-1.5 text-sm'>{errors.password}</p>
                     )}
                 </div>
-
 
                 <div className='w-full relative'>
                     <label htmlFor='confirmPassword' className='text-white font-semibold block mb-1'>

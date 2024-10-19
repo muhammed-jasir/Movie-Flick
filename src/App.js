@@ -16,6 +16,8 @@ import LoginPage from './pages/LoginPage'
 import ResetPassword from './components/ResetPassword'
 import NotFound from './pages/NotFound'
 import AboutPage from './pages/AboutPage'
+import Profile from './pages/Profile'
+import ProtectedRoute from './components/ProtectedRoute'
 
 const App = () => {
     return (
@@ -35,6 +37,14 @@ const App = () => {
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/reset' element={<ResetPassword />} />
                     <Route path='/about' element={<AboutPage />} />
+                    <Route
+                        path="/profile"
+                        element={
+                            <ProtectedRoute>
+                                <Profile />
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
                 <Footer />

@@ -55,7 +55,7 @@ const Dropdown = ({ user }) => {
                     <hr className='my-2.5' />
 
                     <ul className='flex flex-col gap-2'>
-                        <DropdownItem icon={<FaUser />} label={'Profile'} href={'/'} />
+                        <DropdownItem icon={<FaUser />} label={'Profile'} href={'/profile'} />
                         <DropdownItem icon={<IoLogOut />} label={'Signout'} onClick={handleSignout} />
                     </ul>
                 </div>

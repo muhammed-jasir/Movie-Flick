@@ -3,7 +3,8 @@ import React from 'react'
 const AboutPage = () => {
     return (
         <section className='max-w-6xl mx-auto pt-20 min-h-[600px] md:min-h-screen'>
-            <div className='max-w-4xl mx-auto flex flex-col gap-3 bg-slate-950 px-6 py-8 rounded-md my-8'>
+            <h1 className='text-4xl font-bold'>About us</h1>
+            <div className='max-w-4xl mx-auto flex flex-col gap-3 bg-slate-950 px-4 md:px-6 py-8 rounded-md my-8'>
                 <h2 className='text-2xl font-semibold text-center'>
                     Welcome to Movie Flick!
                 </h2>
@@ -21,7 +22,7 @@ const AboutPage = () => {
                 <div className=''>
                     <h2 className="text-2xl font-semibold mb-2">Key Features</h2>
 
-                    <ul className="list-disc list-inside text-gray-300 mb-2">
+                    <ul className="list-disc text-gray-300 mb-2 pl-6">
                         <li>View detailed information about each title.</li>
                         <li>Watch trailers and exclusive video content</li>
                         <li>User-friendly interface for seamless navigation</li>
@@ -32,7 +33,7 @@ const AboutPage = () => {
 
                 <div>
                     <h2 className="text-2xl font-semibold mb-2">Technologies Used</h2>
-                    <ul className="list-disc list-inside text-gray-300">
+                    <ul className="list-disc text-gray-300 pl-6">
                         <li><strong>React:</strong> Building the frontend components.</li>
                         <li><strong>Tailwind CSS:</strong> Styling the UI.</li>
                         <li><strong>Firebase:</strong> User authentication and backend storage.</li>

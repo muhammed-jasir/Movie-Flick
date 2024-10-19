@@ -26,7 +26,7 @@ const Footer = () => {
             links: [
                 {
                     label: 'About Us',
-                    path: '/'
+                    path: '/about'
                 },
                 {
                     label: 'Contact Us',
@@ -43,11 +43,11 @@ const Footer = () => {
             links: [
                 {
                     label: 'Terms and Conditions',
-                    path: '/terms'
+                    path: '/'
                 },
                 {
                     label: 'Privacy Policy',
-                    path: '/privacy'
+                    path: '/'
                 },
             ],
         },
@@ -83,7 +83,7 @@ const Footer = () => {
                     </Link>
 
                     <p className='text-sm max-w-[400px] px-4 md:px-0 w-full text-center md:text-left'>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, voluptas!
+                        Movie Flick is a movie and TV show exploration site created with love and passion by a movie enthusiast.
                     </p>
                 </div>
 
