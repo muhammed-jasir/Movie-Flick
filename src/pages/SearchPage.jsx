@@ -61,11 +61,11 @@ const SearchPage = () => {
     };
 
     const handleScroll = useCallback(throttle(() => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && page < totalPages) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight  && page < totalPages) {
             setPage((prev) => prev + 1);
         }
 
-    }, 100), [page, totalPages]);
+    }, 50), [page, totalPages]);
 
     useEffect(() => {
         if (search.trim().length > 0) {

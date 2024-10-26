@@ -18,6 +18,7 @@ import NotFound from './pages/NotFound'
 import AboutPage from './pages/AboutPage'
 import Profile from './pages/Profile'
 import ProtectedRoute from './components/ProtectedRoute'
+import WatchList from './pages/WatchList'
 
 const App = () => {
     return (
@@ -42,6 +43,14 @@ const App = () => {
                         element={
                             <ProtectedRoute>
                                 <Profile />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/watchlist"
+                        element={
+                            <ProtectedRoute>
+                                <WatchList />
                             </ProtectedRoute>
                         }
                     />

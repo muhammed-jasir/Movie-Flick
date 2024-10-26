@@ -5,23 +5,26 @@ import App from './App';
 import { AuthContextProvider } from './store/authContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { WatchlistContextProvider } from './store/watchlistContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <AuthContextProvider>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                closeOnClick
-                pauseOnHover
-                draggable
-                pauseOnFocusLoss
-                theme="dark"
-                newestOnTop={true}
-            />
-            <App />
+            <WatchlistContextProvider>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    closeOnClick
+                    pauseOnHover
+                    draggable
+                    pauseOnFocusLoss
+                    theme="dark"
+                    newestOnTop={true}
+                />
+                <App />
+            </WatchlistContextProvider>
         </AuthContextProvider>
     </React.StrictMode>
 );

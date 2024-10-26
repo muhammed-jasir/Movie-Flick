@@ -2,9 +2,9 @@ import React from 'react'
 
 const AboutPage = () => {
     return (
-        <section className='max-w-6xl mx-auto pt-20 min-h-[600px] md:min-h-screen'>
-            <h1 className='text-4xl font-bold'>About us</h1>
-            <div className='max-w-4xl mx-auto flex flex-col gap-3 bg-slate-950 px-4 md:px-6 py-8 rounded-md my-8'>
+        <section className='max-w-6xl mx-auto pt-20 min-h-[600px] md:min-h-screen flex flex-col items-center'>
+            <h1 className='text-4xl font-bold pt-2'>About us</h1>
+            <div className='max-w-4xl mx-auto flex flex-col gap-3 bg-slate-900 px-4 md:px-6 py-6 rounded-md my-8'>
                 <h2 className='text-2xl font-semibold text-center'>
                     Welcome to Movie Flick!
                 </h2>

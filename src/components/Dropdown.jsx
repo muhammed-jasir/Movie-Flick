@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FaUser, FaUserCircle } from 'react-icons/fa'
-import { IoLogOut } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../store/authContext';
 import { toast } from 'react-toastify';
+import { BsBookmarkFill, BsFillBookmarPlusFill } from 'react-icons/bs';
+import { RiLogoutBoxRLine } from 'react-icons/ri';
 
 const Dropdown = ({ user }) => {
     const [open, setOpen] = useState(false);
-
     let menuRef = useRef();
 
     const { signout } = useAuthContext();
@@ -56,7 +56,8 @@ const Dropdown = ({ user }) => {
 
                     <ul className='flex flex-col gap-2'>
                         <DropdownItem icon={<FaUser />} label={'Profile'} href={'/profile'} />
-                        <DropdownItem icon={<IoLogOut />} label={'Signout'} onClick={handleSignout} />
+                        <DropdownItem icon={<BsBookmarkFill />} label={'Watchlist'} href={'/watchlist'} />
+                        <DropdownItem icon={<RiLogoutBoxRLine />} label={'Signout'} onClick={handleSignout} />
                     </ul>
                 </div>
             )}

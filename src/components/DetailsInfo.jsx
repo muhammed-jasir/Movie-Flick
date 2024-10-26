@@ -2,14 +2,21 @@ import React, { useEffect, useState } from 'react'
 import axiosInstance from '../services/axios';
 import { Link, useParams } from 'react-router-dom';
 import { getImageUrl } from '../constants/constants';
-import { FaPlay, FaRegCalendarAlt, FaRegClock, FaStar } from 'react-icons/fa';
+import { FaBookmark, FaPlay, FaRegBookmark, FaRegCalendarAlt, FaRegClock, FaStar } from 'react-icons/fa';
 import moment from 'moment';
 import { BiCameraMovie } from 'react-icons/bi';
 import Spinner from './Spinner';
+import { useWatchlistContext } from '../store/watchlistContext';
+import { useAuthContext } from '../store/authContext';
+import { toast } from 'react-toastify';
 
 const DetailsInfo = () => {
     const [mediaData, setMediaData] = useState({});
     const [loading, setLoading] = useState(false);
+    const [isInWatchlist, setIsInWatchlist] = useState(false);
+
+    const { addToWatchlist, removeFromWatchlist, fetchWatchlist } = useWatchlistContext();
+    const { user } = useAuthContext();
 
     const { type, id } = useParams();
 
@@ -20,11 +27,7 @@ const DetailsInfo = () => {
 
         try {
             const response = await axiosInstance.get(`/${type}/${id}`);
-
-            if (response) {
-                setMediaData(response.data);
-            }
-
+            setMediaData(response.data);
         } catch (error) {
             console.error("Error fetching:", error);
         } finally {
@@ -35,6 +38,38 @@ const DetailsInfo = () => {
     useEffect(() => {
         fetchData();
     }, [type, id]);
+
+    useEffect(() => {
+        const checkWatchlistStatus = async () => {
+            const watchlist = await fetchWatchlist(user.uid);
+            const isInWatchlist = watchlist.some(item => item.id === mediaData.id);
+            setIsInWatchlist(isInWatchlist);
+            console.log('Is in watchlist:', isInWatchlist);
+        };
+
+        if (user && mediaData.id) {
+            checkWatchlistStatus();
+        }
+    }, [user, mediaData.id]);
+
+    const handleClick = async () => {
+        try {
+            if (!user) {
+                toast.error('you need to login');
+            } else {
+                setIsInWatchlist(!isInWatchlist);
+                if (!isInWatchlist) {
+                    await addToWatchlist(user.uid, mediaData, type);
+                    toast.success('added to watchlist');
+                } else {
+                    await removeFromWatchlist(user.uid, mediaData, type);
+                    toast.success('removed from watchlist');
+                }
+            }
+        } catch (error) {
+            console.log('Error removing from watchlist:', error);
+        }
+    }
 
     if (loading) {
         return (
@@ -47,7 +82,7 @@ const DetailsInfo = () => {
     return (
         <div className='max-w-[1536px] mx-auto relative flex flex-col md:flex-row gap-8 md:gap-10 md:px-20'>
             <div
-                className='absolute top-0 right-0 left-0 w-full h-[550px] md:h-[590px] max-w-[1536px] bg-cover bg-center bg-[#14213d] bg-no-repeat rounded-b-md'
+                className='absolute top-0 right-0 left-0 w-full h-[590px] md:h-[600px] max-w-[1536px] bg-cover bg-center bg-[#14213d] bg-no-repeat rounded-b-md'
                 style={{
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${getImageUrl('original', mediaData?.backdrop_path)})`,
                     backgroundColor: '#14213d',
@@ -55,18 +90,22 @@ const DetailsInfo = () => {
             ></div>
 
             <div className='pt-40 md:pt-32 flex flex-col items-center md:items-start gap-2'>
-                <div className='min-w-[230px] max-w-[230px]'>
+                <div className='min-w-[230px] max-w-[230px] relative'>
                     {mediaData && mediaData.poster_path ? (
                         <img
                             src={getImageUrl('w500', mediaData?.poster_path)}
                             alt={mediaData?.title || mediaData?.name}
-                            className='w-full h-[300px] object-cover rounded-md drop-shadow-md'
+                            className='h-[300px] w-full object-cover rounded-md drop-shadow-md'
                         />
                     ) : (
                         <div className={`h-[300px] w-full flex justify-center items-center bg-[#14213d] rounded-md drop-shadow-md`}>
                             No Image found
                         </div>
                     )}
+
+                    <button className='absolute top-2.5 right-2.5 p-2.5 rounded-[50%] bg-gray-900 cursor-pointer' onClick={handleClick}>
+                        {isInWatchlist ? <FaBookmark /> : <FaRegBookmark />}
+                    </button>
                 </div>
 
                 <Link to={`/player/${type}/${id}`}>
@@ -77,8 +116,9 @@ const DetailsInfo = () => {
                         </button>
                     )}
                 </Link>
-            </div><div className='pt-10 md:pt-32 flex flex-col gap-2 md:gap-2.5 px-3 md:px-0 py-3 md:py-0'>
+            </div>
 
+            <div className='pt-10 md:pt-32 flex flex-col gap-2 md:gap-2.5 px-3 md:px-0 py-3 md:py-0'>
                 <h2 className='text-4xl font-bold w-full text-white drop-shadow-md text-center md:text-left'>
                     {mediaData?.title || mediaData?.name}
                 </h2>

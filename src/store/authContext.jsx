@@ -65,9 +65,11 @@ export const AuthContextProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async(currentUser) => {
             setUser(currentUser);
+            if (currentUser) {
             const userRef = doc(db, "users", currentUser.uid);
             const userDoc = await getDoc(userRef);
             setUserData(userDoc.data());
+            }
         });
 
         return () => {

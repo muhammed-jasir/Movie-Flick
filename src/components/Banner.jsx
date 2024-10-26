@@ -24,7 +24,7 @@ const Banner = (mediaType) => {
     const fetchTrendingAll = async () => {
         setLoading(true);
         try {
-            const response = await axiosInstance.get("trending/all/day");
+            const response = await axiosInstance.get("trending/all/week");
             const filteredData = response.data.results.filter(item => item.media_type !== 'person');
             setTrendingData(filteredData);
         } catch (error) {
@@ -48,13 +48,12 @@ const Banner = (mediaType) => {
 
     useEffect(() => {
         if (path.includes('/movies')) {
-            fetchTrending('movie', 'day');
+            fetchTrending('movie', 'week');
         } else if (path.includes('/tv')) {
-            fetchTrending('tv', 'day');
+            fetchTrending('tv', 'week');
         } else {
             fetchTrendingAll();
         }
-
     }, [path]);
 
     if (loading) {
