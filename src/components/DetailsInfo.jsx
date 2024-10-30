@@ -14,6 +14,7 @@ const DetailsInfo = () => {
     const [mediaData, setMediaData] = useState({});
     const [loading, setLoading] = useState(false);
     const [isInWatchlist, setIsInWatchlist] = useState(false);
+    console.log(typeof mediaData?.budget, typeof mediaData?.revenue);
 
     const { addToWatchlist, removeFromWatchlist, fetchWatchlist } = useWatchlistContext();
     const { user } = useAuthContext();
@@ -44,7 +45,6 @@ const DetailsInfo = () => {
             const watchlist = await fetchWatchlist(user.uid);
             const isInWatchlist = watchlist.some(item => item.id === mediaData.id);
             setIsInWatchlist(isInWatchlist);
-            console.log('Is in watchlist:', isInWatchlist);
         };
 
         if (user && mediaData.id) {
@@ -53,6 +53,7 @@ const DetailsInfo = () => {
     }, [user, mediaData.id]);
 
     const handleClick = async () => {
+        setLoading(true);
         try {
             if (!user) {
                 toast.error('you need to login');
@@ -60,14 +61,16 @@ const DetailsInfo = () => {
                 setIsInWatchlist(!isInWatchlist);
                 if (!isInWatchlist) {
                     await addToWatchlist(user.uid, mediaData, type);
-                    toast.success('added to watchlist');
+                    toast.success('Added to watchlist');
                 } else {
                     await removeFromWatchlist(user.uid, mediaData, type);
-                    toast.success('removed from watchlist');
+                    toast.success('Removed from watchlist');
                 }
             }
         } catch (error) {
             console.log('Error removing from watchlist:', error);
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -118,7 +121,7 @@ const DetailsInfo = () => {
                 </Link>
             </div>
 
-            <div className='pt-10 md:pt-32 flex flex-col gap-2 md:gap-2.5 px-3 md:px-0 py-3 md:py-0'>
+            <div className='pt-16 md:pt-32 flex flex-col gap-2 md:gap-2.5 px-3 md:px-0 py-3 md:py-0'>
                 <h2 className='text-4xl font-bold w-full text-white drop-shadow-md text-center md:text-left'>
                     {mediaData?.title || mediaData?.name}
                 </h2>
@@ -208,33 +211,21 @@ const DetailsInfo = () => {
                     </div>
                 )}
 
-                {(mediaData?.budget || mediaData?.revenue) && (
-                    <div className='flex flex-row items-center justify-center md:justify-normal gap-2 md:gap-3 text-sm'>
-                        {mediaData?.budget > 0 ? (
-                            <p className='drop-shadow-md'>
-                                <span className='font-semibold'>Budget: </span>
-                                {mediaData?.budget.toLocaleString('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 })}
-                            </p>
-                        ) : (
-                            <p className='drop-shadow-md'>
-                                <span className='font-semibold'>Budget: </span>
-                                N/A
-                            </p>
-                        )}
+                <div className='flex flex-row items-center justify-center md:justify-normal gap-2 md:gap-3 text-sm'>
+                    <p className='drop-shadow-md'>
+                        <span className='font-semibold'>Budget: </span>
+                        {mediaData?.budget > 0
+                            ? mediaData?.budget.toLocaleString('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 })
+                            : 'N/A'}
+                    </p>
 
-                        {mediaData?.revenue > 0 ? (
-                            <p className='drop-shadow-md'>
-                                <span className='font-semibold'>Revenue: </span>
-                                {mediaData?.revenue.toLocaleString('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 })}
-                            </p>
-                        ) : (
-                            <p className='drop-shadow-md'>
-                                <span className='font-semibold'>Revenue: </span>
-                                N/A
-                            </p>
-                        )}
-                    </div>
-                )}
+                    <p className='drop-shadow-md'>
+                        <span className='font-semibold'>Revenue: </span>
+                        {mediaData?.revenue > 0
+                            ? mediaData?.revenue.toLocaleString('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 })
+                            : 'N/A'}
+                    </p>
+                </div>
 
                 {mediaData?.overview && (
                     <div className='pt-1 md:pt-0'>

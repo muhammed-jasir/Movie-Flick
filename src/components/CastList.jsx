@@ -42,7 +42,7 @@ const CastList = () => {
                         <Spinner borderColor={'border-white'} />
                     </div>
                 ) : (
-                    <div className='pt-2 md:pt-[12px] overflow-hidden'>
+                    <div className='pt-2 md:pt-[148px] overflow-hidden'>
                         {casts.length > 0 && (
                             <div className='px-0.5 md:px-8'>
                                 <h1 className='text-xl mb-1.5 px-1'>
@@ -113,7 +113,7 @@ const CastList = () => {
                                                     )
                                                 }
 
-                                                <div className='bg-black/70 w-full rounded-b-md'>
+                                                <div className='bg-black/70 w-full rounded-b-md h-9'>
                                                     <h3 className='text-sm font-semibold text-ellipsis line-clamp-1 text-center'>
                                                         {crew?.name}
                                                     </h3>

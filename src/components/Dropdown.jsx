@@ -3,7 +3,7 @@ import { FaUser, FaUserCircle } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../store/authContext';
 import { toast } from 'react-toastify';
-import { BsBookmarkFill, BsFillBookmarPlusFill } from 'react-icons/bs';
+import { BsBookmarkFill } from 'react-icons/bs';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
 
 const Dropdown = ({ user }) => {
@@ -40,7 +40,20 @@ const Dropdown = ({ user }) => {
 
     return (
         <div className='relative' ref={menuRef}>
-            <FaUserCircle className='cursor-pointer text-3xl' onClick={() => setOpen(!open)} />
+            <div onClick={() => setOpen(!open)}>
+                {user.photoURL
+                    ? (
+                        <img
+                            src={user.photoURL}
+                            alt='profile pic'
+                            className={`rounded-full object-cover cursor-pointer h-8 w-8`}
+                            referrerPolicy="no-referrer"
+                        />
+                    ) : (
+                        <FaUserCircle className='cursor-pointer h-8 w-8' />
+                    )
+                }
+            </div>
 
             {open && (
                 <div className='absolute top-14 right-5 bg-[#14213d] rounded-md px-2.5 py-5 w-[200px]'>

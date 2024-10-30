@@ -2,20 +2,25 @@ import React, { useEffect, useState } from 'react'
 import { useWatchlistContext } from '../store/watchlistContext';
 import { useAuthContext } from '../store/authContext';
 import PosterCard from '../components/PosterCard';
+import Spinner from '../components/Spinner';
 
 const WatchList = () => {
     const [watchlist, setWatchlist] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const { fetchWatchlist } = useWatchlistContext();
     const { user } = useAuthContext();
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
                 const response = await fetchWatchlist(user.uid);
                 setWatchlist(response);
             } catch (error) {
                 console.error("Failed to fetch watchlist:", error);
+            }finally {
+                setLoading(false);
             }
         };
 
@@ -24,7 +29,15 @@ const WatchList = () => {
         }
     }, [user]);
 
-    if (watchlist.length === 0) {
+    if (loading) {
+        return (
+            <div className='w-full min-h-screen flex items-center justify-center'>
+                <Spinner borderColor={'border-white'} />
+            </div>
+        );
+    }
+
+    if (!loading && watchlist.length === 0) {
         return (
             <div className='w-full min-h-screen flex items-center justify-center'>
                 <h2 className='text-xl'>Your watchlist is empty.</h2>
@@ -44,6 +57,8 @@ const WatchList = () => {
                                 data={item}
                                 type={item.type}
                                 isSmall
+                                isWatchlist
+                                user={user}
                             />
                         ))
                     }

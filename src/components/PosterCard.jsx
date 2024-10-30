@@ -2,8 +2,22 @@ import React from 'react'
 import { getImageUrl } from '../constants/constants';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { FaBookmark } from 'react-icons/fa';
+import { useWatchlistContext } from '../store/watchlistContext';
 
-const PosterCard = ({ data, isTrending, index, type, isSmall }) => {
+const PosterCard = ({ data, isTrending, index, type, isSmall, isWatchlist, user }) => {
+    const { removeFromWatchlist } = useWatchlistContext();
+
+    const handleClick = async () => {
+        try {
+            await removeFromWatchlist(user.uid, data, type);
+            toast.success('removed from watchlist');
+        } catch (error) {
+            console.log('Error removing from watchlist:', error);
+        }
+    }
+
     return (
         <Link to={`/${type}/${data?.id}`}>
             <div className={`relative ${isSmall ? 'min-w-[150px] max-w-[150px] h-[230px] sm:min-w-[200px] sm:max-w-[200px] sm:h-[300px] md:min-w-[230px] md:max-w-[230px] md:h-[350px]' : 'min-w-[230px] max-w-[230px] h-[350px]'} cursor-pointer rounded-md hover:scale-105 transition.all ease-in-out duration-300 hover:border-2 border-white overflow-hidden`}>
@@ -43,6 +57,16 @@ const PosterCard = ({ data, isTrending, index, type, isSmall }) => {
                             <div className='bg-black/80 px-4 py-1 rounded-r-full backdrop-blur-3xl'>
                                 #{index} Trending
                             </div>
+                        )
+                    }
+                </div>
+
+                <div className='absolute top-2.5 right-2.5'>
+                    {
+                        isWatchlist && (
+                            <button className='p-2.5 rounded-[50%] bg-gray-900 cursor-pointer' onClick={handleClick}>
+                                <FaBookmark />
+                            </button>
                         )
                     }
                 </div>
